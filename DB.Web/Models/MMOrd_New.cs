@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DB.Web.Model
+namespace DB.Web.Models
 {
     [Table("MMOrd_New")]
     public class MMOrd_New

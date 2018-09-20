@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DB.Web.Model
+namespace DB.Web.Models
 {
     [Table("Base_WcnStatus")]
     public class Base_WcnStatus

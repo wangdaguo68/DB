@@ -10,3 +10,15 @@ D:\项目\DB.Test\DB.Test\obj\Debug\DB.Test.pdb
 D:\项目\DB.Test\DB.Test\obj\Debug\DB.Test.csprojAssemblyReference.cache
 D:\项目\DB.Test\DB.Test\obj\Debug\DB.Test.csproj.CoreCompileInputs.cache
 D:\项目\DB.Test\DB.Test\obj\Debug\DB.Test.csproj.CopyComplete
+D:\项目\DB\DB.Test\bin\Debug\DB.Test.exe.config
+D:\项目\DB\DB.Test\bin\Debug\DB.Test.exe
+D:\项目\DB\DB.Test\bin\Debug\DB.Test.pdb
+D:\项目\DB\DB.Test\bin\Debug\EntityFramework.dll
+D:\项目\DB\DB.Test\bin\Debug\EntityFramework.SqlServer.dll
+D:\项目\DB\DB.Test\bin\Debug\EntityFramework.xml
+D:\项目\DB\DB.Test\bin\Debug\EntityFramework.SqlServer.xml
+D:\项目\DB\DB.Test\obj\Debug\DB.Test.csprojAssemblyReference.cache
+D:\项目\DB\DB.Test\obj\Debug\DB.Test.csproj.CoreCompileInputs.cache
+D:\项目\DB\DB.Test\obj\Debug\DB.Test.csproj.CopyComplete
+D:\项目\DB\DB.Test\obj\Debug\DB.Test.exe
+D:\项目\DB\DB.Test\obj\Debug\DB.Test.pdb

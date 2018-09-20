@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DB.Web.Model
+namespace DB.Web.Models
 {
     [Table("Bu_WcnRunRecord")]
     public class Bu_WcnRunRecord

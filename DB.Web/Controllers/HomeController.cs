@@ -1,9 +1,8 @@
-﻿using DB.Web.Model;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using DB.Web.Models;
 
 namespace DB.Web.Controllers
 {
@@ -12,6 +11,18 @@ namespace DB.Web.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+        /// <summary>
+        /// 数据
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetArea(string area)
+        {
+            using (var _db = new MyContext())
+            {
+                var data = SqlQuery<WSActualTimeData>(_db, string.Format("select * from WSActualTimeData where Area ='{0}'", area));
+                return Json(data);
+            }
         }
         /// <summary>
         /// A区

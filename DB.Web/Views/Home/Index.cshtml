@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <title>CE电子看板（轮换）</title>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/lib/echarts.min.js"></script>
@@ -17,131 +17,466 @@
         */
         .box {
             border: 1px;
-            border-style: solid;
-            border-radius: 5px;
             border-color: #ceaa9d;
+            border-radius: 5px;
+            border-style: solid;
             height: 100%;
-            margin-top: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            margin-top: 10px;
             padding: 5px;
+            display: block;
         }
 
-        .hundred-height {
-            height: 100%;
-        }
+        .hundred-height { height: 100%; }
 
         .row-margin {
-            height: 30%;
-            margin-bottom: 20px;
+            height: 32%;
+            margin-bottom: 10px;
         }
 
         .process {
-            width: 90%;
-            height: 80px;
-            margin: 0px;
-            padding: 0px;
+            border: 2px #ffffff solid;
+            border-radius: 5px;
+            color: #0064B4;
+            height: 50px;
+            margin: 0;
             margin-left: 20px;
             margin-top: 20px;
-            border: 2px rgba(255,255,255,0.6) solid;
-            border-radius: 5px;
+            padding: 0;
+            width: 90%;
             /*box-shadow:4px 4px 4px rgba(255,255,255,0.4);*/
         }
 
         .process-p {
-            width: 100px;
-            height: 30px;
-            margin: 0px;
-            padding: 0px;
-            position: relative;
-            left: 35%;
-            top: -155px;
-            text-align: center;
-            line-height: 220px;
-            font-size: 40px;
+            color: #ffffff;
+            font-size: 30px;
             font-weight: bold;
-            color: rgba(255,255,255,1);
+            height: 30px;
+            left: 35%;
+            line-height: 220px;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            text-align: center;
+            top: -140px;
+            width: 100px;
+        }
+
+        .p-name {
+            color: white;
+            font-size: 30px;
+            height: 45px;
+            margin-left: 25px;
+            margin-top: 3px;
+            position: relative;
+        }
+
+        .p-num {
+            background-color: #39c931;
+            border-radius: 5px;
+            color: white;
+            float: right;
+            font-size: 30px;
+            height: 45px;
+            margin-right: 40px;
+        }
+
+        .img-css {
+            height: 45px;
+            margin-left: 10px;
+        }
+
+        .chart-css {
+            float: left;
+            height: 400px;
+            margin-top: -120px;
+            width: 150px;
         }
     </style>
 </head>
-<body class="hundred-height" style="background-image:url('/images/bg1.png')">
-    <div class="container-fluid hundred-height">
-        <div class="row row-margin">
-            <div class="col-md-4 hundred-height">
-                <div class="box">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img src="~/images/robot.ico" style="height:45px" />
-                        </div>
-                        <div class="col-md-6" style="height:45px;font-size:40px;color:white">PA98</div>
-                        <div class="col-md-3" style="height:45px;font-size:40px;color:white;background-color:#39c931;border-radius:5px">818410</div>
+<body class="hundred-height" style="background-image: url('/images/bg1.png')">
+<div id="area_a" class="active container-fluid hundred-height">
+    <div class="row row-margin">
+        <div class="col-md-3 hundred-height">
+            <div class="box">
+                <div class="row">
+                    <div class="col-md-1">
+                        <img src="~/images/robot.ico" class="img-css" alt=""/>
                     </div>
-                    <div>
-                        <progress class="process" value="2447" max="10080"></progress>
-                        <p class="process-p">2447/10080</p>
-                    </div>
-                    <div id="main" style="width: 200px;height:300px;margin-top:-100px"></div>
+                    <div class="col-md-5 p-name" id="name11"></div>
+                    <div class="col-md-4 p-num" id="num11"></div>
                 </div>
-            </div>
-            <div class="col-md-4 hundred-height">
-                <div class="box">
-
+                <div class="row">
+                    <progress class="process" id="process11"></progress>
+                    <p class="process-p" id="processnum11"></p>
                 </div>
-            </div>
-            <div class="col-md-4 hundred-height">
-                <div class="box">
-
+                <div class="row">
+                    <div id="main111" class="chart-css"></div>
+                    <div id="main112" class="chart-css"></div>
+                    <div id="main113" class="chart-css"></div>
                 </div>
             </div>
         </div>
-        <div class="row row-margin">
-            <div class="col-md-4 hundred-height">
-                <div class="box">
-
+        <div class="col-md-3 hundred-height">
+            <div class="box">
+                <div class="row">
+                    <div class="col-md-1">
+                        <img src="~/images/robot.ico" class="img-css" alt=""/>
+                    </div>
+                    <div class="col-md-5 p-name" id="name12"></div>
+                    <div class="col-md-4 p-num" id="num12"></div>
                 </div>
-            </div>
-            <div class="col-md-4 hundred-height">
-                <div class="box">
-
+                <div class="row">
+                    <progress class="process" id="process12"></progress>
+                    <p class="process-p" id="processnum12"></p>
                 </div>
-            </div>
-            <div class="col-md-4 hundred-height">
-                <div class="box">
-
+                <div class="row">
+                    <div id="main121" class="chart-css"></div>
+                    <div id="main122" class="chart-css"></div>
+                    <div id="main123" class="chart-css"></div>
                 </div>
             </div>
         </div>
-        <div class="row row-margin">
-            <div class="col-md-4 hundred-height">
-                <div class="box">
-
+        <div class="col-md-3 hundred-height">
+            <div class="box">
+                <div class="row">
+                    <div class="col-md-1">
+                        <img src="~/images/robot.ico" class="img-css" alt=""/>
+                    </div>
+                    <div class="col-md-5 p-name" id="name13"></div>
+                    <div class="col-md-4 p-num" id="num13"></div>
+                </div>
+                <div class="row">
+                    <progress class="process" id="process13"></progress>
+                    <p class="process-p" id="processnum13"></p>
+                </div>
+                <div class="row">
+                    <div id="main131" class="chart-css"></div>
+                    <div id="main132" class="chart-css"></div>
+                    <div id="main133" class="chart-css"></div>
                 </div>
             </div>
-            <div class="col-md-4 hundred-height">
-                <div class="box">
-
+        </div>
+        <div class="col-md-3 hundred-height">
+            <div class="box">
+                <div class="row">
+                    <div class="col-md-1">
+                        <img src="~/images/robot.ico" class="img-css" alt=""/>
+                    </div>
+                    <div class="col-md-5 p-name" id="name14"></div>
+                    <div class="col-md-4 p-num" id="num14"></div>
+                </div>
+                <div class="row">
+                    <progress class="process" id="process14"></progress>
+                    <p class="process-p" id="processnum14"></p>
+                </div>
+                <div class="row">
+                    <div id="main141" class="chart-css"></div>
+                    <div id="main142" class="chart-css"></div>
+                    <div id="main143" class="chart-css"></div>
                 </div>
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('main'));
-        // 指定图表的配置项和数据
-        var option = {
-            series: [{
-                name: 'OEEC',
-                type: 'gauge',
-                detail: { formatter: '{value}%' },
-                data: [{ value: 45, name: 'OEEC' }]
-            }]
+    <div class="row row-margin">
+        <div class="col-md-3 hundred-height">
+            <div class="box">
+                <div class="row">
+                    <div class="col-md-1">
+                        <img src="~/images/robot.ico" class="img-css" alt=""/>
+                    </div>
+                    <div class="col-md-5 p-name" id="name21"></div>
+                    <div class="col-md-4 p-num" id="num21"></div>
+                </div>
+                <div class="row">
+                    <progress class="process" id="process21"></progress>
+                    <p class="process-p" id="processnum21"></p>
+                </div>
+                <div class="row">
+                    <div id="main211" class="chart-css"></div>
+                    <div id="main212" class="chart-css"></div>
+                    <div id="main213" class="chart-css"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 hundred-height">
+            <div class="box">
+                <div class="row">
+                    <div class="col-md-1">
+                        <img src="~/images/robot.ico" class="img-css" alt=""/>
+                    </div>
+                    <div class="col-md-5 p-name" id="name22"></div>
+                    <div class="col-md-4 p-num" id="num22"></div>
+                </div>
+                <div class="row">
+                    <progress class="process" id="process22"></progress>
+                    <p class="process-p" id="processnum22"></p>
+                </div>
+                <div class="row">
+                    <div id="main221" class="chart-css"></div>
+                    <div id="main222" class="chart-css"></div>
+                    <div id="main223" class="chart-css"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 hundred-height">
+            <div class="box">
+                <div class="row">
+                    <div class="col-md-1">
+                        <img src="~/images/robot.ico" class="img-css" alt=""/>
+                    </div>
+                    <div class="col-md-5 p-name" id="name23"></div>
+                    <div class="col-md-4 p-num" id="num23"></div>
+                </div>
+                <div class="row">
+                    <progress class="process" id="process23"></progress>
+                    <p class="process-p" id="processnum23"></p>
+                </div>
+                <div class="row">
+                    <div id="main231" class="chart-css"></div>
+                    <div id="main232" class="chart-css"></div>
+                    <div id="main233" class="chart-css"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 hundred-height">
+            <div class="box">
+                <div class="row">
+                    <div class="col-md-1">
+                        <img src="~/images/robot.ico" class="img-css" alt=""/>
+                    </div>
+                    <div class="col-md-5 p-name" id="name24"></div>
+                    <div class="col-md-4 p-num" id="num24"></div>
+                </div>
+                <div class="row">
+                    <progress class="process" id="process24"></progress>
+                    <p class="process-p" id="processnum24"></p>
+                </div>
+                <div class="row">
+                    <div id="main241" class="chart-css"></div>
+                    <div id="main242" class="chart-css"></div>
+                    <div id="main243" class="chart-css"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="area_b" class="hidden container-fluid hundred-height"></div>
+<div id="area_c" class="hidden container-fluid hundred-height"></div>
+<div id="area_d" class="hidden container-fluid hundred-height"></div>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
 
-        };
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-        setInterval(function () {//把option.series[0].data[0].value的值使用random()方法获取一个随机数
-            option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
-            myChart.setOption(option, true);
-        }, 2000);
-    </script>
+    var myChart111 = echarts.init(document.getElementById('main111'));
+    var myChart112 = echarts.init(document.getElementById('main112'));
+    var myChart113 = echarts.init(document.getElementById('main113'));
+
+    var myChart121 = echarts.init(document.getElementById('main121'));
+    var myChart122 = echarts.init(document.getElementById('main122'));
+    var myChart123 = echarts.init(document.getElementById('main123'));
+
+    var myChart131 = echarts.init(document.getElementById('main131'));
+    var myChart132 = echarts.init(document.getElementById('main132'));
+    var myChart133 = echarts.init(document.getElementById('main133'));
+
+    var myChart141 = echarts.init(document.getElementById('main141'));
+    var myChart142 = echarts.init(document.getElementById('main142'));
+    var myChart143 = echarts.init(document.getElementById('main143'));
+
+    var myChart211 = echarts.init(document.getElementById('main211'));
+    var myChart212 = echarts.init(document.getElementById('main212'));
+    var myChart213 = echarts.init(document.getElementById('main213'));
+
+    var myChart221 = echarts.init(document.getElementById('main221'));
+    var myChart222 = echarts.init(document.getElementById('main222'));
+    var myChart223 = echarts.init(document.getElementById('main223'));
+
+    var myChart231 = echarts.init(document.getElementById('main231'));
+    var myChart232 = echarts.init(document.getElementById('main232'));
+    var myChart233 = echarts.init(document.getElementById('main233'));
+
+    var myChart241 = echarts.init(document.getElementById('main241'));
+    var myChart242 = echarts.init(document.getElementById('main242'));
+    var myChart243 = echarts.init(document.getElementById('main243'));
+    // 指定图表的配置项和数据
+    var option = {
+        series: [
+            {
+                name: '业务指标',
+                type: 'gauge',
+                startAngle: 180,
+                endAngle: 0,
+                radius: 50,
+                axisLine: {
+                    show: true,
+                    // 属性lineStyle控制线条样式
+                    lineStyle: {
+                        width: 15,
+                        color: [[0.3, '#ff797a'], [0.5, '#999'], [1, '#a3db41']]
+                    }
+                },
+                splitLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+                axisLabel: {
+                    show: false
+                },
+                pointer: {
+                    length: '50%',
+                    width: 4,
+                    color: 'auto'
+                },
+                detail: {
+                    //offsetCenter: [0, '-120%'],
+                    fontSize: 14,
+                    formatter: ''
+                },
+                data: [
+                    { value: 0 }
+                ]
+            }
+        ]
+    };
+    var viewdata_a = function() {
+        $.ajax({
+            url: '/Home/GetArea_A',
+            type: 'Get',
+            dataType: 'Json',
+            success: function(data) {
+                /**
+                 * 第一行
+                 */
+                option.series[0].detail.formatter = 'OEEC {value}%';
+                option.series[0].data[0].value = data[0].oeec;
+                myChart111.setOption(option);
+                option.series[0].detail.formatter = 'OEEP {value}%';
+                option.series[0].data[0].value = data[0].oeep;
+                myChart112.setOption(option);
+                option.series[0].detail.formatter = '良率 {value}%';
+                option.series[0].data[0].value = data[0].badRate;
+                myChart113.setOption(option);
+                $("#name11").html(data[0].wcnName);
+                $("#num11").html(data[0].docNum2);
+                $("#process11").attr("value", data[0].factQty);
+                $("#process11").attr("max", data[0].qty);
+                $("#processnum11").html(data[0].factQty + "/" + data[0].qty);
+
+                option.series[0].detail.formatter = 'OEEC {value}%';
+                option.series[0].data[0].value = data[1].oeec;
+                myChart121.setOption(option);
+                option.series[0].detail.formatter = 'OEEP {value}%';
+                option.series[0].data[0].value = data[1].oeep;
+                myChart122.setOption(option);
+                option.series[0].detail.formatter = '良率 {value}%';
+                option.series[0].data[0].value = data[2].badRate;
+                myChart123.setOption(option);
+                $("#name12").html(data[1].wcnName);
+                $("#num12").html(data[1].docNum2);
+                $("#process12").attr("value", data[1].factQty);
+                $("#process12").attr("max", data[1].qty);
+                $("#processnum12").html(data[1].factQty + "/" + data[1].qty);
+
+                option.series[0].detail.formatter = 'OEEC {value}%';
+                option.series[0].data[0].value = data[2].oeec;
+                myChart131.setOption(option);
+                option.series[0].detail.formatter = 'OEEP {value}%';
+                option.series[0].data[0].value = data[2].oeep;
+                myChart132.setOption(option);
+                option.series[0].detail.formatter = '良率 {value}%';
+                option.series[0].data[0].value = data[2].badRate;
+                myChart133.setOption(option);
+                $("#name13").html(data[2].wcnName);
+                $("#num13").html(data[2].docNum2);
+                $("#process13").attr("value", data[2].factQty);
+                $("#process13").attr("max", data[2].qty);
+                $("#processnum13").html(data[2].factQty + "/" + data[2].qty);
+
+                option.series[0].detail.formatter = 'OEEC {value}%';
+                option.series[0].data[0].value = data[3].oeec;
+                myChart141.setOption(option);
+                option.series[0].detail.formatter = 'OEEP {value}%';
+                option.series[0].data[0].value = data[3].oeep;
+                myChart142.setOption(option);
+                option.series[0].detail.formatter = '良率 {value}%';
+                option.series[0].data[0].value = data[3].badRate;
+                myChart143.setOption(option);
+                $("#name14").html(data[3].wcnName);
+                $("#num14").html(data[3].docNum2);
+                $("#process14").attr("value", data[3].factQty);
+                $("#process14").attr("max", data[3].qty);
+                $("#processnum14").html(data[3].factQty + "/" + data[3].qty);
+                /**
+                 * 第二行
+                 */
+                option.series[0].detail.formatter = 'OEEC {value}%';
+                option.series[0].data[0].value = data[4].oeec;
+                myChart211.setOption(option);
+                option.series[0].detail.formatter = 'OEEP {value}%';
+                option.series[0].data[0].value = data[4].oeep;
+                myChart212.setOption(option);
+                option.series[0].detail.formatter = '良率 {value}%';
+                option.series[0].data[0].value = data[4].badRate;
+                myChart213.setOption(option);
+                $("#name21").html(data[4].wcnName);
+                $("#num21").html(data[4].docNum2);
+                $("#process21").attr("value", data[4].factQty);
+                $("#process21").attr("max", data[4].qty);
+                $("#processnum21").html(data[4].factQty + "/" + data[4].qty);
+
+                option.series[0].detail.formatter = 'OEEC {value}%';
+                option.series[0].data[0].value = data[5].oeec;
+                myChart221.setOption(option);
+                option.series[0].detail.formatter = 'OEEP {value}%';
+                option.series[0].data[0].value = data[5].oeep;
+                myChart222.setOption(option);
+                option.series[0].detail.formatter = '良率 {value}%';
+                option.series[0].data[0].value = data[5].badRate;
+                myChart223.setOption(option);
+                $("#name22").html(data[5].wcnName);
+                $("#num22").html(data[5].docNum2);
+                $("#process22").attr("value", data[5].factQty);
+                $("#process22").attr("max", data[5].qty);
+                $("#processnum22").html(data[5].factQty + "/" + data[5].qty);
+
+                option.series[0].detail.formatter = 'OEEC {value}%';
+                option.series[0].data[0].value = data[6].oeec;
+                myChart231.setOption(option);
+                option.series[0].detail.formatter = 'OEEP {value}%';
+                option.series[0].data[0].value = data[6].oeep;
+                myChart232.setOption(option);
+                option.series[0].detail.formatter = '良率 {value}%';
+                option.series[0].data[0].value = data[6].badRate;
+                myChart233.setOption(option);
+                $("#name23").html(data[6].wcnName);
+                $("#num23").html(data[6].docNum2);
+                $("#process23").attr("value", data[6].factQty);
+                $("#process23").attr("max", data[6].qty);
+                $("#processnum23").html(data[6].factQty + "/" + data[6].qty);
+
+                option.series[0].detail.formatter = 'OEEC {value}%';
+                option.series[0].data[0].value = data[7].oeec;
+                myChart241.setOption(option);
+                option.series[0].detail.formatter = 'OEEP {value}%';
+                option.series[0].data[0].value = data[7].oeep;
+                myChart242.setOption(option);
+                option.series[0].detail.formatter = '良率 {value}%';
+                option.series[0].data[0].value = data[7].badRate;
+                myChart243.setOption(option);
+                $("#name24").html(data[7].wcnName);
+                $("#num24").html(data[7].docNum2);
+                $("#process24").attr("value", data[7].factQty);
+                $("#process24").attr("max", data[7].qty);
+                $("#processnum24").html(data[7].factQty + "/" + data[7].qty);
+            }
+        });
+    };
+    viewdata_a();
+    clearInterval(timeTicket);
+    //5分钟刷新一次数据
+    var timeTicket = setInterval(viewdata_a,300000);
+</script>
 </body>
 </html>

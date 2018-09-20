@@ -1,15 +1,11 @@
-﻿using DB.Web.Model;
+﻿using DB.Web.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DB.Web
 {
-    public class MyContext : DbContext
+    public sealed class MyContext : DbContext
     {
-        public MyContext() : base()
+        public MyContext()
         {
             //this.Database.SetCommandTimeout(120);
         }

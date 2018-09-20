@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DB.Web.Model
+namespace DB.Web.Models
 {
     [Table("MDWcn_New")]
     public class MDWcn_New
