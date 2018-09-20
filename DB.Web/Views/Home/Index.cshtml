@@ -1,0 +1,147 @@
+﻿@{
+    ViewData["Title"] = "CE电子看板（轮换）";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html class="hundred-height">
+<head>
+    <meta charset="utf-8">
+    <title>CE电子看板（轮换）</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/echarts.min.js"></script>
+    <style type="text/css">
+        /*
+            机台盒子模型
+        */
+        .box {
+            border: 1px;
+            border-style: solid;
+            border-radius: 5px;
+            border-color: #ceaa9d;
+            height: 100%;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 5px;
+        }
+
+        .hundred-height {
+            height: 100%;
+        }
+
+        .row-margin {
+            height: 30%;
+            margin-bottom: 20px;
+        }
+
+        .process {
+            width: 90%;
+            height: 80px;
+            margin: 0px;
+            padding: 0px;
+            margin-left: 20px;
+            margin-top: 20px;
+            border: 2px rgba(255,255,255,0.6) solid;
+            border-radius: 5px;
+            /*box-shadow:4px 4px 4px rgba(255,255,255,0.4);*/
+        }
+
+        .process-p {
+            width: 100px;
+            height: 30px;
+            margin: 0px;
+            padding: 0px;
+            position: relative;
+            left: 35%;
+            top: -155px;
+            text-align: center;
+            line-height: 220px;
+            font-size: 40px;
+            font-weight: bold;
+            color: rgba(255,255,255,1);
+        }
+    </style>
+</head>
+<body class="hundred-height" style="background-image:url('/images/bg1.png')">
+    <div class="container-fluid hundred-height">
+        <div class="row row-margin">
+            <div class="col-md-4 hundred-height">
+                <div class="box">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="~/images/robot.ico" style="height:45px" />
+                        </div>
+                        <div class="col-md-6" style="height:45px;font-size:40px;color:white">PA98</div>
+                        <div class="col-md-3" style="height:45px;font-size:40px;color:white;background-color:#39c931;border-radius:5px">818410</div>
+                    </div>
+                    <div>
+                        <progress class="process" value="2447" max="10080"></progress>
+                        <p class="process-p">2447/10080</p>
+                    </div>
+                    <div id="main" style="width: 200px;height:300px;margin-top:-100px"></div>
+                </div>
+            </div>
+            <div class="col-md-4 hundred-height">
+                <div class="box">
+
+                </div>
+            </div>
+            <div class="col-md-4 hundred-height">
+                <div class="box">
+
+                </div>
+            </div>
+        </div>
+        <div class="row row-margin">
+            <div class="col-md-4 hundred-height">
+                <div class="box">
+
+                </div>
+            </div>
+            <div class="col-md-4 hundred-height">
+                <div class="box">
+
+                </div>
+            </div>
+            <div class="col-md-4 hundred-height">
+                <div class="box">
+
+                </div>
+            </div>
+        </div>
+        <div class="row row-margin">
+            <div class="col-md-4 hundred-height">
+                <div class="box">
+
+                </div>
+            </div>
+            <div class="col-md-4 hundred-height">
+                <div class="box">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+        // 指定图表的配置项和数据
+        var option = {
+            series: [{
+                name: 'OEEC',
+                type: 'gauge',
+                detail: { formatter: '{value}%' },
+                data: [{ value: 45, name: 'OEEC' }]
+            }]
+
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+        setInterval(function () {//把option.series[0].data[0].value的值使用random()方法获取一个随机数
+            option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+            myChart.setOption(option, true);
+        }, 2000);
+    </script>
+</body>
+</html>
