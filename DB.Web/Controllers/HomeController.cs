@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using DB.Web.Models;
+using System.Linq;
 
 namespace DB.Web.Controllers
 {
@@ -11,6 +12,18 @@ namespace DB.Web.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+        /// <summary>
+        /// 获取速度配置
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetSpeed()
+        {
+            using (var _db = new MyContext())
+            {
+                var data = _db.Speeds.FirstOrDefault();
+                return Json(data);
+            }
         }
         /// <summary>
         /// 数据
@@ -22,6 +35,24 @@ namespace DB.Web.Controllers
             {
                 var data = SqlQuery<WSActualTimeData>(_db, string.Format("select * from WSActualTimeData where Area ='{0}'", area));
                 return Json(data);
+            }
+        }
+        /// <summary>
+        /// 数据
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetAreas()
+        {
+            using (var _db = new MyContext())
+            {
+                var data = SqlQuery<WSActualTimeData>(_db, "select * from WSActualTimeData");
+                var result = new {
+                    A = data.Where(p=>p.Area=="A"),
+                    B = data.Where(p => p.Area == "B"),
+                    C = data.Where(p => p.Area == "C"),
+                    D = data.Where(p => p.Area == "D"),
+                };
+                return Json(result);
             }
         }
         /// <summary>

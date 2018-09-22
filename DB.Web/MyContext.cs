@@ -19,11 +19,10 @@ namespace DB.Web
         public DbSet<MMOrd_New> MMOrd_News { get; set; }
         public DbSet<MDWcn_New> MDWcn_News { get; set; }
         public DbSet<Bu_WcnRunRecord> Bu_WcnRunRecords { get; set; }
+        public DbSet<Speed> Speeds { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            //optionsBuilder.UseMySql("Server=120.26.222.134;port=3307;database=test;uid=sa;pwd=wjwx*2007;");//配置连接字符串
-
             optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=WSExcuteSys;User ID=sa;Password=king665206;");
         }
     }
