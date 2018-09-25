@@ -59,6 +59,7 @@ var App = {
         this.InitDom();
         //初始化数据
         this.InitData();
+        //区域A数据绑定
         this.DataBind_A();
     },
     /**
@@ -68,9 +69,10 @@ var App = {
         $.ajax({
             url: '/Home/GetSpeed',
             type: 'Get',
+            async: false,
             dataType: 'Json',
             success: function (data) {
-                if (data !== null) {
+                if (data !== null && data !== undefined) {
                    refreshspeed = data.dataRefreshSpeed;
                    changespeed = data.screenSpeed;
                 }
@@ -238,5 +240,4 @@ var App = {
             $("#area_a").removeClass("acitve").addClass("hidden");
         }
     }
-
 };
