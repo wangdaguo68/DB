@@ -1,0 +1,5 @@
+/.vs
+/DB.Test/obj
+/DB.Test/bin
+/DB.Web/bin
+/DB.Web/obj
