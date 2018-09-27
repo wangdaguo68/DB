@@ -50,7 +50,7 @@
             margin-left: 20px;
             margin-top: 20px;
             padding: 0;
-            width: 90%;
+            width: 92%;
             /*box-shadow:4px 4px 4px rgba(255,255,255,0.4);*/
         }
 
@@ -85,7 +85,7 @@
             float: right;
             font-size: 30px;
             height: 45px;
-            margin-right: 40px;
+            margin-right: 6%;
         }
 
         .img-css {
@@ -95,8 +95,8 @@
 
         .chart-css {
             float: left;
-            height: 400px;
-            margin-top: -120px;
+            height: 150px;
+            /*margin-top: -25%;*/
             width: 150px;
         }
     </style>
@@ -107,27 +107,27 @@
         App.Init();
         console.log(changespeed);
         console.log(refreshspeed);
-        var i = 1;
-        clearInterval(timeScreen);
-        clearInterval(timeRefresh);
-        //1分钟切一次屏幕
-        var timeScreen = setInterval(function () {
-            i = i + 1;
-            if (i % 4 === 1) {
-                App.DataBind_A();
-            } else if (i % 4 === 2) {
-                App.DataBind_B();
-            }
-            else if (i % 4 === 3) {
-                App.DataBind_C();
-            } else {
-                App.DataBind_D();
-            }
-        }, changespeed * 1000);
-        //10分钟刷新一次数据
-        var timeRefresh = setInterval(function () {
-            App.InitData();
-        }, refreshspeed * 1000);
+        //var i = 1;
+        //clearInterval(timeScreen);
+        //clearInterval(timeRefresh);
+        ////1分钟切一次屏幕
+        //var timeScreen = setInterval(function () {
+        //    i = i + 1;
+        //    if (i % 4 === 1) {
+        //        App.DataBind_A();
+        //    } else if (i % 4 === 2) {
+        //        App.DataBind_B();
+        //    }
+        //    else if (i % 4 === 3) {
+        //        App.DataBind_C();
+        //    } else {
+        //        App.DataBind_D();
+        //    }
+        //}, changespeed * 1000);
+        ////10分钟刷新一次数据
+        //var timeRefresh = setInterval(function () {
+        //    App.InitData();
+        //}, refreshspeed * 1000);
     </script>
 </body>
 </html>
