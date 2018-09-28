@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html class="hundred-height">
 <head>
-    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
     <title>CE电子看板（轮换）</title>
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -14,7 +14,7 @@
     <script src="~/js/Common.js"></script>
     <style type="text/css">
         /*
-            机台盒子模型
+           盒子模型
         */
         .box {
             border: 1px;
@@ -45,20 +45,17 @@
             border: 2px #ffffff solid;
             border-radius: 5px;
             color: #0064B4;
-            height: 50px;
             margin: 0;
             margin-left: 20px;
             margin-top: 20px;
             padding: 0;
             width: 92%;
-            /*box-shadow:4px 4px 4px rgba(255,255,255,0.4);*/
         }
 
         .process-p {
             color: #ffffff;
-            font-size: 30px;
+            /*font-size: 2em;*/
             font-weight: bold;
-            height: 30px;
             left: 35%;
             line-height: 220px;
             margin: 0;
@@ -71,8 +68,7 @@
 
         .p-name {
             color: white;
-            font-size: 30px;
-            height: 45px;
+            /*font-size: 2em;*/
             margin-left: 25px;
             margin-top: 3px;
             position: relative;
@@ -83,51 +79,56 @@
             border-radius: 5px;
             color: white;
             float: right;
-            font-size: 30px;
-            height: 45px;
+            /*font-size: 2em;*/
             margin-right: 6%;
+            text-align: center;
         }
 
         .img-css {
-            height: 45px;
             margin-left: 10px;
         }
 
         .chart-css {
             float: left;
-            height: 150px;
-            /*margin-top: -25%;*/
-            width: 150px;
         }
     </style>
 </head>
-<body id="body" class="hundred-height" style="background-image: url('/images/bg1.png')">
+<body id="body" class="hundred-height" style="background-image: url('/images/bglarge.png')">
     <script type="text/javascript">
         //初始化
         App.Init();
-        console.log(changespeed);
-        console.log(refreshspeed);
-        //var i = 1;
-        //clearInterval(timeScreen);
-        //clearInterval(timeRefresh);
-        ////1分钟切一次屏幕
-        //var timeScreen = setInterval(function () {
-        //    i = i + 1;
-        //    if (i % 4 === 1) {
-        //        App.DataBind_A();
-        //    } else if (i % 4 === 2) {
-        //        App.DataBind_B();
-        //    }
-        //    else if (i % 4 === 3) {
-        //        App.DataBind_C();
-        //    } else {
-        //        App.DataBind_D();
-        //    }
-        //}, changespeed * 1000);
-        ////10分钟刷新一次数据
-        //var timeRefresh = setInterval(function () {
-        //    App.InitData();
-        //}, refreshspeed * 1000);
+        //根据窗口的大小变动图表 --- 重点
+        window.onresize = function () {
+            for (var i = 0; i < 40; i++) {
+                myChart1[i].resize();
+                myChart2[i].resize();
+                myChart3[i].resize();
+            }
+
+        };
+        var i = 1;
+        clearInterval(timeScreen);
+        clearInterval(timeRefresh);
+        //1分钟切一次屏幕
+        var timeScreen = setInterval(function () {
+            i = i + 1;
+            if (i % 5 === 1) {
+                App.ShowIndex();
+            } else if (i % 5 === 2) {
+                App.DataBind_A();
+            }
+            else if (i % 5 === 3) {
+                App.DataBind_B();
+            } else if (i % 5 === 4) {
+                App.DataBind_C();
+            } else {
+                App.DataBind_D();
+            }
+        }, changespeed * 1000);
+        //10分钟刷新一次数据
+        var timeRefresh = setInterval(function () {
+            App.InitData();
+        }, refreshspeed * 1000);
     </script>
 </body>
 </html>
