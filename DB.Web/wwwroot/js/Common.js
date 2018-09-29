@@ -73,6 +73,7 @@ var App = {
         this.InitData();
         //区域A数据绑定
         this.ShowIndex();
+        //this.DataBind_A();
 
     },
     SetCss: function () {

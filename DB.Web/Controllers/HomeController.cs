@@ -9,6 +9,11 @@ namespace DB.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private MyContext _db;
+        public HomeController(MyContext db)
+        {
+            _db = db;
+        }
         public IActionResult Index()
         {
             return View();
@@ -19,11 +24,10 @@ namespace DB.Web.Controllers
         /// <returns></returns>
         public JsonResult GetSpeed()
         {
-            using (var _db = new MyContext())
-            {
-                var data = _db.Speeds.FirstOrDefault();
-                return Json(data);
-            }
+
+            var data = _db.Speeds.FirstOrDefault();
+            return Json(data);
+
         }
         /// <summary>
         /// 数据
@@ -31,11 +35,9 @@ namespace DB.Web.Controllers
         /// <returns></returns>
         public JsonResult GetArea(string area)
         {
-            using (var _db = new MyContext())
-            {
-                var data = SqlQuery<WSActualTimeData>(_db, string.Format("select * from WSActualTimeData where Area ='{0}'", area));
-                return Json(data);
-            }
+
+            var data = SqlQuery<WSActualTimeData>(_db, string.Format("select * from WSActualTimeData where Area ='{0}'", area));
+            return Json(data);
         }
         /// <summary>
         /// 数据
@@ -43,17 +45,17 @@ namespace DB.Web.Controllers
         /// <returns></returns>
         public JsonResult GetAreas()
         {
-            using (var _db = new MyContext())
+
+            var data = SqlQuery<WSActualTimeData>(_db, "select * from WSActualTimeData");
+            var result = new
             {
-                var data = SqlQuery<WSActualTimeData>(_db, "select * from WSActualTimeData");
-                var result = new {
-                    A = data.Where(p=>p.Area=="A"),
-                    B = data.Where(p => p.Area == "B"),
-                    C = data.Where(p => p.Area == "C"),
-                    D = data.Where(p => p.Area == "D"),
-                };
-                return Json(result);
-            }
+                A = data.Where(p => p.Area == "A"),
+                B = data.Where(p => p.Area == "B"),
+                C = data.Where(p => p.Area == "C"),
+                D = data.Where(p => p.Area == "D"),
+            };
+            return Json(result);
+
         }
         /// <summary>
         /// A区
@@ -61,11 +63,9 @@ namespace DB.Web.Controllers
         /// <returns></returns>
         public JsonResult GetArea_A()
         {
-            using (var _db = new MyContext())
-            {
-                var data = SqlQuery<WSActualTimeData>(_db, "select * from WSActualTimeData where Area ='A'");
-                return Json(data);
-            }
+            var data = SqlQuery<WSActualTimeData>(_db, "select * from WSActualTimeData where Area ='A'");
+            return Json(data);
+
         }
         /// <summary>
         /// B区
@@ -73,11 +73,9 @@ namespace DB.Web.Controllers
         /// <returns></returns>
         public JsonResult GetArea_B()
         {
-            using (var _db = new MyContext())
-            {
-                var data = SqlQuery<WSActualTimeData>(_db, "select * from WSActualTimeData where Area ='B'");
-                return Json(data);
-            }
+
+            var data = SqlQuery<WSActualTimeData>(_db, "select * from WSActualTimeData where Area ='B'");
+            return Json(data);
         }
         /// <summary>
         /// C区
@@ -85,11 +83,10 @@ namespace DB.Web.Controllers
         /// <returns></returns>
         public JsonResult GetArea_C()
         {
-            using (var _db = new MyContext())
-            {
-                var data = SqlQuery<WSActualTimeData>(_db, "select * from WSActualTimeData where Area ='C'");
-                return Json(data);
-            }
+
+            var data = SqlQuery<WSActualTimeData>(_db, "select * from WSActualTimeData where Area ='C'");
+            return Json(data);
+
         }
         /// <summary>
         /// D区
@@ -97,11 +94,9 @@ namespace DB.Web.Controllers
         /// <returns></returns>
         public JsonResult GetArea_D()
         {
-            using (var _db = new MyContext())
-            {
-                var data = SqlQuery<WSActualTimeData>(_db, "select * from WSActualTimeData where Area ='D'");
-                return Json(data);
-            }
+
+            var data = SqlQuery<WSActualTimeData>(_db, "select * from WSActualTimeData where Area ='D'");
+            return Json(data);
         }
         /// <summary>
         /// 执行sql不带参数
