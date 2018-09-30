@@ -73,7 +73,7 @@ var App = {
         this.InitData();
         //区域A数据绑定
         this.ShowIndex();
-        //this.DataBind_A();
+        this.DataBind_A();
 
     },
     SetCss: function () {
@@ -158,12 +158,12 @@ var App = {
         });
     },
     CreateBox: function (num) {
-        var doc = '<div class="col-md-3 hundred-height">';
+        var doc = '<div class="col-xs-3 hundred-height">';
         doc = doc + '<div class="box">';
         doc = doc + '<div class="row" style="height:20%">';
-        doc = doc + '<div class="col-md-1"> <img src="images/robot.ico" class="img-css" alt="" style ="height:' + height / 24 + 'px"/></div>';
-        doc = doc + '<div class="col-md-5 p-name" id="name_' + num + '" style ="height:' + height / 24 + 'px;font-size:' + fontsize + 'em"></div>';
-        doc = doc + '<div class="col-md-4 p-num" id="num_' + num + '" style ="height:' + height / 24 + 'px;font-size:' + fontsize + 'em"></div>';
+        doc = doc + '<div class="col-xs-1"> <img src="images/robot.ico" class="img-css" alt="" style ="height:' + height / 24 + 'px"/></div>';
+        doc = doc + '<div class="col-xs-5 p-name" id="name_' + num + '" style ="height:' + height / 24 + 'px;font-size:' + fontsize + 'em"></div>';
+        doc = doc + '<div class="col-xs-4 p-num" id="num_' + num + '" style ="height:' + height / 24 + 'px;font-size:' + fontsize + 'em"></div>';
         doc = doc + '</div>';
         doc = doc + '<div class="row" style="height:20%">';
         doc = doc + '<progress class="process" id="process_' + num + '" style ="height:' + height / 24 + 'px"></progress>';
