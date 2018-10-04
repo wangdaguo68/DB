@@ -80,7 +80,7 @@ var App = {
         height = $(window).height();
         width = $(window).width();
         //根据屏幕尺寸设置字体大小
-        fontsize = width / 4096 * 4;
+        fontsize = width / 3840 * 4;
         //设置图表尺寸
         chartwidth = Math.round(width / 1980) * 150;
         chartheight = chartwidth / 3 * 4;
@@ -160,16 +160,16 @@ var App = {
     CreateBox: function (num) {
         var doc = '<div class="col-xs-3 hundred-height">';
         doc = doc + '<div class="box">';
-        doc = doc + '<div class="row" style="height:20%">';
-        doc = doc + '<div class="col-xs-1"> <img src="images/robot.ico" class="img-css" alt="" style ="height:' + height / 24 + 'px"/></div>';
-        doc = doc + '<div class="col-xs-5 p-name" id="name_' + num + '" style ="height:' + height / 24 + 'px;font-size:' + fontsize + 'em"></div>';
-        doc = doc + '<div class="col-xs-4 p-num" id="num_' + num + '" style ="height:' + height / 24 + 'px;font-size:' + fontsize + 'em"></div>';
+        doc = doc + '<div class="row" style="height:15%">';
+        doc = doc + '<div class="col-xs-1"> <img src="images/robot.ico" class="img-css" alt="" style ="height:' + height / 23 + 'px"/></div>';
+        doc = doc + '<div class="col-xs-5 p-name" id="name_' + num + '" style ="height:' + height / 23 + 'px;font-size:' + fontsize + 'em"></div>';
+        doc = doc + '<div class="col-xs-4 p-num" id="num_' + num + '" style ="height:' + height / 23 + 'px;font-size:' + fontsize + 'em"></div>';
         doc = doc + '</div>';
-        doc = doc + '<div class="row" style="height:20%">';
-        doc = doc + '<progress class="process" id="process_' + num + '" style ="height:' + height / 24 + 'px"></progress>';
-        doc = doc + '<p class="process-p" id="processnum_' + num + '" style ="height:' + height / 24 + 'px;font-size:' + fontsize + 'em"></p>';
+        doc = doc + '<div class="row" style="height:15%">';
+        doc = doc + '<progress class="process" id="process_' + num + '" style ="height:' + height / 23 + 'px"></progress>';
+        doc = doc + '<p class="process-p" id="processnum_' + num + '" style ="height:' + height / 23 + 'px;font-size:' + fontsize + 'em"></p>';
         doc = doc + '</div>';
-        doc = doc + '<div class="row" style="height:60%">';
+        doc = doc + '<div class="row" style="height:70%">';
         doc = doc + '<div id="main_' + num + '1" class="chart-css" style ="height:' + chartheight + 'px;width:' + chartwidth + 'px;margin-left:15px"></div>';
         doc = doc + '<div id="main_' + num + '2" class="chart-css" style ="height:' + chartheight + 'px;width:' + chartwidth + 'px"></div>';
         doc = doc + '<div id="main_' + num + '3" class="chart-css" style ="height:' + chartheight + 'px;width:' + chartwidth + 'px"></div>';
