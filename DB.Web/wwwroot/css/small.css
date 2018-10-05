@@ -1,0 +1,166 @@
+﻿@media screen and (max-width: 1360px) {
+    /*
+           盒子模型
+        */
+    .box {
+        border: 1px;
+        border-color: #ceaa9d;
+        border-radius: 5px;
+        border-style: solid;
+        height: 100%;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        padding: 5px;
+        display: block;
+    }
+
+    .hundred-height {
+        height: 100% !important;
+        /*width:100%!important;*/
+    }
+
+    .hundred-width {
+        width: 100% !important;
+    }
+
+    .row-margin {
+        height: 32%;
+        margin-bottom: 10px;
+    }
+
+    .process {
+        border: 2px #ffffff solid;
+        border-radius: 5px;
+        color: #0064B4;
+        margin: 0;
+        margin-left: 20px;
+        margin-top: 20px;
+        padding: 0;
+        width: 85%;
+    }
+
+    .process-p {
+        color: #ffffff;
+        /*font-size: 2em;*/
+        font-weight: bold;
+        left: 35%;
+        line-height: 220px;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        text-align: center;
+        top: -128px;
+        width: 100px;
+    }
+
+    .p-name {
+        color: white;
+        /*font-size: 2em;*/
+        margin-left: 25px;
+        margin-top: 3px;
+        position: relative;
+    }
+
+    .p-num {
+        background-color: #39c931;
+        border-radius: 5px;
+        color: white;
+        float: right;
+        /*font-size: 2em;*/
+        margin-right: 6%;
+        text-align: center;
+        margin-top: -25px;
+    }
+
+    .img-css {
+        margin-left: 10px;
+    }
+
+    .chart-css {
+        float: left;
+        position: relative;
+        margin-top: 40px;
+    }
+}
+@media screen and (min-width: 1980px) {
+    /*
+           盒子模型
+        */
+    .box {
+        border: 1px;
+        border-color: #ceaa9d;
+        border-radius: 5px;
+        border-style: solid;
+        height: 100%;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        padding: 5px;
+        display: block;
+    }
+
+    .hundred-height {
+        height: 100% !important;
+        /*width:100%!important;*/
+    }
+
+    .hundred-width {
+        width: 100% !important;
+    }
+
+    .row-margin {
+        height: 32%;
+        margin-bottom: 10px;
+    }
+
+    .process {
+        border: 2px #ffffff solid;
+        border-radius: 5px;
+        color: #0064B4;
+        margin: 0;
+        margin-left: 30px;
+        margin-top: 20px;
+        padding: 0;
+        width: 88%;
+    }
+
+    .process-p {
+        color: #ffffff;
+        /*font-size: 2em;*/
+        font-weight: bold;
+        left: 35%;
+        line-height: 220px;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        text-align: center;
+        top: -140px;
+        width: 100px;
+    }
+
+    .p-name {
+        color: white;
+        /*font-size: 2em;*/
+        margin-left: 25px;
+        margin-top: 3px;
+        position: relative;
+    }
+
+    .p-num {
+        background-color: #39c931;
+        border-radius: 5px;
+        color: white;
+        float: right;
+        /*font-size: 2em;*/
+        margin-right: 6%;
+        text-align: center;
+    }
+
+    .img-css {
+        margin-left: 10px;
+    }
+
+    .chart-css {
+        float: left;
+        position: relative;
+    }
+}

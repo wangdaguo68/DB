@@ -5,96 +5,15 @@
 <!DOCTYPE html>
 <html class="hundred-height">
 <head>
-    @*<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">*@
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    @*<meta name="viewport" content="width=device-width, initial-scale=1" />*@
     <title>CE电子看板（轮换）</title>
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/small.css" rel="stylesheet" />
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/lib/echarts.min.js"></script>
     <script src="~/js/Common.js"></script>
-    <style type="text/css">
-        /*
-           盒子模型
-        */
-        .box {
-            border: 1px;
-            border-color: #ceaa9d;
-            border-radius: 5px;
-            border-style: solid;
-            height: 100%;
-            margin-bottom: 10px;
-            margin-top: 10px;
-            padding: 5px;
-            display: block;
-        }
-
-        .hundred-height {
-            height: 100% !important;
-            /*width:100%!important;*/
-        }
-
-        .hundred-width {
-            width: 100% !important;
-        }
-
-        .row-margin {
-            height: 32%;
-            margin-bottom: 10px;
-        }
-
-        .process {
-            border: 2px #ffffff solid;
-            border-radius: 5px;
-            color: #0064B4;
-            margin: 0;
-            margin-left: 20px;
-            margin-top: 20px;
-            padding: 0;
-            width: 92%;
-        }
-
-        .process-p {
-            color: #ffffff;
-            /*font-size: 2em;*/
-            font-weight: bold;
-            left: 35%;
-            line-height: 220px;
-            margin: 0;
-            padding: 0;
-            position: relative;
-            text-align: center;
-            top: -140px;
-            width: 100px;
-        }
-
-        .p-name {
-            color: white;
-            /*font-size: 2em;*/
-            margin-left: 25px;
-            margin-top: 3px;
-            position: relative;
-        }
-
-        .p-num {
-            background-color: #39c931;
-            border-radius: 5px;
-            color: white;
-            float: right;
-            /*font-size: 2em;*/
-            margin-right: 6%;
-            text-align: center;
-        }
-
-        .img-css {
-            margin-left: 10px;
-        }
-
-        .chart-css {
-            float: left;
-            position:relative;
-        }
-    </style>
 </head>
 <body id="body" class="hundred-height" style="background-image: url('/images/bglarge.png')">
     <script type="text/javascript">

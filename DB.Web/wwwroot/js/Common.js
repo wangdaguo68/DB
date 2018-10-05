@@ -13,8 +13,9 @@ var myChart3 = new Array(40);
 var height = 150;//视窗高度
 var width = 150;//视窗宽度
 var fontsize = 2;//字体大小
-var chartheight = 100;//仪表盘高度
-var chartwidth = 150;//仪表盘宽度
+var chartheight = 60;//仪表盘高度
+var chartwidth = 70;//仪表盘宽度
+var chartfontsize = 10;
 var option = {
     series: [
         {
@@ -22,12 +23,12 @@ var option = {
             type: 'gauge',
             startAngle: 180,
             endAngle: 0,
-            radius: 50,
+            radius: 30,
             axisLine: {
                 show: true,
                 // 属性lineStyle控制线条样式
                 lineStyle: {
-                    width: 15,
+                    width: 10,
                     color: [
                         [0.6, "#DA462C"],//0-60%处的颜色
                         [0.7, "#FF9618"],//60%-70%处的颜色
@@ -52,7 +53,7 @@ var option = {
             },
             detail: {
                 //offsetCenter: [0, '-120%'],
-                fontSize: 14,
+                fontSize: chartfontsize,
                 formatter: ''
             },
             data: [
@@ -79,11 +80,15 @@ var App = {
     SetCss: function () {
         height = $(window).height();
         width = $(window).width();
+        console.log(width + "," + height);
         //根据屏幕尺寸设置字体大小
         fontsize = width / 3840 * 4;
-        //设置图表尺寸
-        chartwidth = Math.round(width / 1980) * 150;
-        chartheight = chartwidth / 3 * 4;
+        if (width > 1360) {
+            //设置图表尺寸
+            chartwidth = Math.round(width / 1980) * 150;
+            chartheight = chartwidth / 3 * 4;
+            chartfontsize = 15;
+        }
     },
     /**
      * 初始化速度
