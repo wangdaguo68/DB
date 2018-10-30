@@ -10,8 +10,8 @@
         public string Area { get; set; }
         public int StatusId { get; set; }
         public string Status { get; set; }
-        public int OEEC { get; set; }
-        public int OEEP { get; set; }
+        public decimal OEEC { get; set; }
+        public decimal OEEP { get; set; }
         public decimal BadRate { get; set; }
     }
 }
