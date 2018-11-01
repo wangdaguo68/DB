@@ -21,6 +21,7 @@ namespace DB.Web
         //public DbSet<MDWcn_New> MDWcn_News { get; set; }
         //public DbSet<Bu_WcnRunRecord> Bu_WcnRunRecords { get; set; }
         public DbSet<Speed> Speeds { get; set; }
+        //public DbSet<ZZ_Tmp_CEoEE> ZZ_Tmp_CEoEEs { get; set; }
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    //var sqlConnection = Configuration.GetConnectionString("SqlServerConnection");

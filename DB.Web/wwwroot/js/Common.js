@@ -195,10 +195,10 @@ var App = {
     DataBind_A: function () {
         for (var i = 0; i < 11; i++) {
             option1[i].series[0].detail.formatter = 'OEEC {value}%';
-            option1[i].series[0].data[0].value = area_a[i].oeec;
+            option1[i].series[0].data[0].value = parseInt(area_a[i].oeec * 100);
             myChart1[i].setOption(option1[i]);
             option2[i].series[0].detail.formatter = 'OEEP {value}%';
-            option2[i].series[0].data[0].value = area_a[i].oeep;
+            option2[i].series[0].data[0].value = parseInt(area_a[i].oeep * 100);
             myChart2[i].setOption(option2[i]);
             option3[i].series[0].detail.formatter = '良率 {value}%';
             option3[i].series[0].data[0].value = area_a[i].badRate;
@@ -218,10 +218,10 @@ var App = {
     DataBind_B: function () {
         for (var i =11; i < 22; i++) {
             option1[i].series[0].detail.formatter = 'OEEC {value}%';
-            option1[i].series[0].data[0].value = area_b[i - 11].oeec;
+            option1[i].series[0].data[0].value = parseInt(area_b[i - 11].oeec * 100);
             myChart1[i].setOption(option1[i]);
             option2[i].series[0].detail.formatter = 'OEEP {value}%';
-            option2[i].series[0].data[0].value = area_b[i - 11].oeep;
+            option2[i].series[0].data[0].value = parseInt(area_b[i - 11].oeep * 100);
             myChart2[i].setOption(option2[i]);
             option3[i].series[0].detail.formatter = '良率 {value}%';
             option3[i].series[0].data[0].value = area_b[i - 11].badRate;
@@ -241,10 +241,10 @@ var App = {
     DataBind_C: function () {
         for (var i = 22; i < 33; i++) {
             option1[i].series[0].detail.formatter = 'OEEC {value}%';
-            option1[i].series[0].data[0].value = area_c[i - 22].oeec;
+            option1[i].series[0].data[0].value = parseInt(area_c[i - 22].oeec *100);
             myChart1[i].setOption(option1[i - 22]);
             option2[i].series[0].detail.formatter = 'OEEP {value}%';
-            option2[i].series[0].data[0].value = area_c[i - 22].oeep;
+            option2[i].series[0].data[0].value = parseInt(area_c[i - 22].oeep * 100);
             myChart2[i].setOption(option2[i]);
             option3[i].series[0].detail.formatter = '良率 {value}%';
             option3[i].series[0].data[0].value = area_c[i - 22].badRate;
@@ -264,10 +264,10 @@ var App = {
     DataBind_D: function () {
         for (var i = 33; i < 44; i++) {
             option1[i].series[0].detail.formatter = 'OEEC {value}%';
-            option1[i].series[0].data[0].value = area_d[i - 33].oeec;
+            option1[i].series[0].data[0].value = parseInt(area_d[i - 33].oeec * 100);
             myChart1[i].setOption(option1[i - 33]);
             option2[i].series[0].detail.formatter = 'OEEP {value}%';
-            option2[i].series[0].data[0].value = area_d[i - 33].oeep;
+            option2[i].series[0].data[0].value = parseInt(area_d[i - 33].oeep * 100);
             myChart2[i].setOption(option2[i]);
             option3[i].series[0].detail.formatter = '良率 {value}%';
             option3[i].series[0].data[0].value = area_d[i - 33].badRate;
