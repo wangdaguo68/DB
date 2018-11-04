@@ -16,17 +16,52 @@ namespace DB.Web.Controllers
         }
         public IActionResult Index()
         {
+            //var data = GetData();
+            return View();
+        }
+        /// <summary>
+        /// 获取日，周，月的统计报表数据
+        /// </summary>
+        /// <returns></returns>
+        private dynamic GetData()
+        {
             //总数据
             var total = GetReport();
+            var result_day = new List<ResultData>();
+            var result_week = new List<ResultData>();
+            var result_month = new List<ResultData>();
             //过去7天每天数据
             var data_day = total.Where(p => p.DocDate <= DateTime.Now && p.DocDate >= DateTime.Now.AddDays(-7)).ToList();
+            foreach (var obj in data_day)
+            {
+                //前台需要的真实日数据
+                var yield = (obj.LPQty + obj.NQty) == 0 ? 0 : Convert.ToDecimal(obj.LPQty) / (obj.LPQty + obj.NQty);
+                var p_e_p = obj.JHTime == 0 ? 0 : Convert.ToDecimal(obj.YXYX) / obj.JHTime;
+                var p_e_c = obj.JTKYZTime == 0 ? 0 : Convert.ToDecimal(obj.YXYX) / obj.JTKYZTime;
+                var performance = obj.BZCL == 0 ? 0 : Convert.ToDecimal(obj.LPQty) / obj.BZCL;
+                var oeec = yield * p_e_c * performance;
+                var oeep = yield * p_e_p * performance;
+                var model = new ResultData
+                {
+                    Yield = Math.Round(yield, 2),
+                    P_Efficiency_P = Math.Round(p_e_p, 2),
+                    P_Efficiency_C = Math.Round(p_e_c, 2),
+                    Performance = Math.Round(performance, 2),
+                    OEEC = Math.Round(oeec, 2),
+                    OEEP = Math.Round(oeep, 2),
+                    Date = obj.DocDate.ToString("MM-dd")
+                };
+                result_day.Add(model);
+            }
             //过去4周每周数据
             var data_week = new List<DataModel>();
-            for (var i = 0; i < 4; i++) {
+            var item = new DataModel();
+            for (var i = 0; i < 4; i++)
+            {
                 var items = total.Where(p => p.DocDate <= DateTime.Now.AddDays(0 - i * 7) && p.DocDate >= DateTime.Now.AddDays(0 - (i + 1) * 7)).ToList();
                 if (items.Any())
                 {
-                    var item = new DataModel
+                    item = new DataModel
                     {
                         weeknum = i + 1,
                         LPQty = items.Sum(p => p.LPQty),
@@ -40,9 +75,9 @@ namespace DB.Web.Controllers
                 }
                 else
                 {
-                    var item = new DataModel
+                    item = new DataModel
                     {
-                        weeknum = i+1,
+                        weeknum = i + 1,
                         LPQty = 0,
                         NQty = 0,
                         BZCL = 0,
@@ -52,6 +87,24 @@ namespace DB.Web.Controllers
                     };
                     data_week.Add(item);
                 }
+                //前台需要的真实周数据
+                var yield = (item.LPQty + item.NQty) == 0 ? 0 : Convert.ToDecimal(item.LPQty) / (item.LPQty + item.NQty);
+                var p_e_p = item.JHTime == 0 ? 0 : Convert.ToDecimal(item.YXYX) / item.JHTime;
+                var p_e_c = item.JTKYZTime == 0 ? 0 : Convert.ToDecimal(item.YXYX) / item.JTKYZTime;
+                var performance = item.BZCL == 0 ? 0 : Convert.ToDecimal(item.LPQty) / item.BZCL;
+                var oeec = yield * p_e_c * performance;
+                var oeep = yield * p_e_p * performance;
+                var model = new ResultData
+                {
+                    Yield = Math.Round(yield, 2),
+                    P_Efficiency_P = Math.Round(p_e_p, 2),
+                    P_Efficiency_C = Math.Round(p_e_c, 2),
+                    Performance = Math.Round(performance, 2),
+                    OEEC = Math.Round(oeec, 2),
+                    OEEP = Math.Round(oeep, 2),
+                    Date = "第" + (i + 1) + "周"
+                };
+                result_week.Add(model);
             }
             //过去12月每个月数据
             var data_month = new List<DataModel>();
@@ -67,7 +120,7 @@ namespace DB.Web.Controllers
                 var items = total.Where(p => p.DocDate.Month == month && p.DocDate.Year == year).ToList();
                 if (items.Any())
                 {
-                    var item = new DataModel
+                    item = new DataModel
                     {
                         DocDate = items[0].DocDate,
                         Date = items[0].DocDate.ToString("yyyy-MM"),
@@ -80,11 +133,12 @@ namespace DB.Web.Controllers
                     };
                     data_month.Add(item);
                 }
-                else{
-                    var item = new DataModel
+                else
+                {
+                    item = new DataModel
                     {
-                        DocDate = Convert.ToDateTime(year.ToString() +"-"+ month.ToString() + "-1"),
-                        Date = Convert.ToDateTime(year.ToString()+"-"+month.ToString()+"-1").ToString("yyyy-MM"),
+                        DocDate = Convert.ToDateTime(year.ToString() + "-" + month.ToString() + "-1"),
+                        Date = Convert.ToDateTime(year.ToString() + "-" + month.ToString() + "-1").ToString("yy-MM"),
                         LPQty = 0,
                         NQty = 0,
                         BZCL = 0,
@@ -94,9 +148,32 @@ namespace DB.Web.Controllers
                     };
                     data_month.Add(item);
                 }
-                data_month = data_month.OrderBy(p=>p.DocDate).ToList();
+                data_month = data_month.OrderBy(p => p.DocDate).ToList();
+                //前台需要的真实周数据
+                var yield = (item.LPQty + item.NQty) == 0 ? 0 : Convert.ToDecimal(item.LPQty) / (item.LPQty + item.NQty);
+                var p_e_p = item.JHTime == 0 ? 0 : Convert.ToDecimal(item.YXYX) / item.JHTime;
+                var p_e_c = item.JTKYZTime == 0 ? 0 : Convert.ToDecimal(item.YXYX) / item.JTKYZTime;
+                var performance = item.BZCL == 0 ? 0 : Convert.ToDecimal(item.LPQty) / item.BZCL;
+                var oeec = yield * p_e_c * performance;
+                var oeep = yield * p_e_p * performance;
+                var model = new ResultData
+                {
+                    Yield = Math.Round(yield, 2),
+                    P_Efficiency_P = Math.Round(p_e_p, 2),
+                    P_Efficiency_C = Math.Round(p_e_c, 2),
+                    Performance = Math.Round(performance, 2),
+                    OEEC = Math.Round(oeec, 2),
+                    OEEP = Math.Round(oeep, 2),
+                    Date = item.DocDate.ToString("yyyy-MM")
+                };
+                result_month.Add(model);
             }
-            return View();
+            return new
+            {
+                Results_Day = result_day,
+                Results_Week = result_week,
+                Results_Month = result_month
+            };
         }
         /// <summary>
         /// 获取速度配置
@@ -133,6 +210,7 @@ namespace DB.Web.Controllers
                 B = data.Where(p => p.Area == "B"),
                 C = data.Where(p => p.Area == "C"),
                 D = data.Where(p => p.Area == "D"),
+                Report = GetData()
             };
             return Json(result);
 
@@ -318,5 +396,6 @@ namespace DB.Web.Controllers
                 trans.Commit();
             }
         }
+
     }
 }

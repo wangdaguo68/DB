@@ -5,17 +5,109 @@ var area_d = new Array();
 var option1 = new Array(40);
 var option2 = new Array(40);
 var option3 = new Array(40);
+var data_day = new Array();
+var data_week = new Array();
+var data_month = new Array();
+var day_axis = new Array();
+var week_axis = new Array();
+var month_axis = new Array();
+
+var day_yield = new Array();
+var week_yield = new Array();
+var month_yield = new Array();
+
+var day_pep = new Array();
+var week_pep = new Array();
+var month_pep = new Array();
+
+var day_pec = new Array();
+var week_pec = new Array();
+var month_pec = new Array();
+
+var day_performance = new Array();
+var week_performance = new Array();
+var month_performance = new Array();
+
+var day_oeec = new Array();
+var week_oeec = new Array();
+var month_oeec = new Array();
+
+var day_oeep = new Array();
+var week_oeep = new Array();
+var month_oeep = new Array();
+
 var refreshspeed = 600;//数据刷新速度初始默认10分钟
 var changespeed = 60;//屏幕切换速度初始默认1分钟
 var myChart1 = new Array(40);
 var myChart2 = new Array(40);
 var myChart3 = new Array(40);
+
+var myChartx = new Array(6);
+var myCharty = new Array(6);
+var myChartz = new Array(6);
+
 var height = 150;//视窗高度
 var width = 150;//视窗宽度
 var fontsize = 2;//字体大小
 var chartheight = 60;//仪表盘高度
 var chartwidth = 70;//仪表盘宽度
 var chartfontsize = 10;
+var option_temp = {
+    tooltip: {
+        trigger: 'axis'
+    },
+    calculable: true,
+    legend: {
+        data: [],
+        textStyle: {
+            fontSize: 12,
+            color: '#fff'
+        }
+    },
+    xAxis: [
+        {
+            type: 'category',
+            data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+            axisLabel: {
+                show: true,
+                textStyle: {
+                    color: '#fff'
+                }
+            }
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value',
+            name: '百分比',
+            axisLabel: {
+                formatter: '{value}',
+                show: true,
+                textStyle: {
+                    color: '#fff'
+                }
+            },
+            nameTextStyle: {
+                color:'#fff'
+            }
+        }
+    ],
+    series: [
+
+        {
+            name: '良率',
+            type: 'bar',
+            barWidth: 30,//柱图宽度
+            data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+            itemStyle: {
+                normal: {
+                    color: '#4ad2ff'
+                }
+            },
+        }
+    ]
+};
+
 var option = {
     series: [
         {
@@ -74,7 +166,8 @@ var App = {
         this.InitData();
         //区域A数据绑定
         this.ShowIndex();
-        this.DataBind_A();
+        //this.DataBind_A();
+        this.ShowReport();
 
     },
     SetCss: function () {
@@ -115,6 +208,16 @@ var App = {
         var dom_index = '<div id="area_index" class="active hundred-height">';
         dom_index = dom_index + '<img src="/images/bg1.jpg" />';
         dom_index = dom_index + '</div>';
+        var dom_report = '<div id="area_report" class="active hundred-height">';
+        for (var i = 0; i < 6; i++) {
+            dom_report += '<div class="row row-report">';
+            dom_report += '<div id="main_'+i+'x'+'" class="chart-css" style ="height:' + 180 + 'px;width:' + 500 + 'px"></div>';
+            dom_report += '<div id="main_' + i + 'y' +'" class="chart-css" style ="height:' + 180 + 'px;width:' + 400 + 'px"></div>';
+            dom_report += '<div id="main_' + i + 'z' +'" class="chart-css" style ="height:' + 180 + 'px;width:' + 1000 + 'px"></div>';
+            dom_report += '</div>';
+        }
+
+        dom_report = dom_report + '</div>';
         var dom_a = '<div id="area_a" class="hidden hundred-height">';
         dom_a = dom_a + '<div class="row row-margin">' + this.CreateBox(0) + this.CreateBox(1) + this.CreateBox(2) + this.CreateBox(3) + '</div>';
         dom_a = dom_a + '<div class="row row-margin">' + this.CreateBox(4) + this.CreateBox(5) + this.CreateBox(6) + this.CreateBox(7) + '</div>';
@@ -133,9 +236,9 @@ var App = {
         var dom_d = '<div id="area_d" class="hidden hundred-height">';
         dom_d = dom_d + '<div class="row row-margin">' + this.CreateBox(33) + this.CreateBox(34) + this.CreateBox(35) + this.CreateBox(36) + '</div>';
         dom_d = dom_d + '<div class="row row-margin">' + this.CreateBox(37) + this.CreateBox(38) + this.CreateBox(39) + this.CreateBox(40) + '</div>';
-        dom_d = dom_d + '<div class="row row-margin">' + this.CreateBox(41) + this.CreateBox(42) + this.CreateBox(43) +'</div>';
+        dom_d = dom_d + '<div class="row row-margin">' + this.CreateBox(41) + this.CreateBox(42) + this.CreateBox(43) + '</div>';
         dom_d = dom_d + '</div>';
-        var dom = dom_index + dom_a + dom_b + dom_c + dom_d;
+        var dom = dom_index + dom_report + dom_a + dom_b + dom_c + dom_d;
         $("#body").html(dom);
         for (var i = 0; i < 44; i++) {
             option1[i] = option;
@@ -145,6 +248,7 @@ var App = {
             myChart2[i] = echarts.init(document.getElementById('main_' + i + '2'));
             myChart3[i] = echarts.init(document.getElementById('main_' + i + '3'));
         }
+
     },
     /**
      * 初始化数据
@@ -160,7 +264,9 @@ var App = {
                 area_b = data.b;
                 area_c = data.c;
                 area_d = data.d;
-
+                data_day = data.report.results_Day;
+                data_week = data.report.results_Week;
+                data_month = data.report.results_Month;
             }
         });
     },
@@ -191,6 +297,104 @@ var App = {
         $("#area_b").removeClass("acitve").addClass("hidden");
         $("#area_c").removeClass("acitve").addClass("hidden");
         $("#area_d").removeClass("acitve").addClass("hidden");
+        $("#area_report").removeClass("acitve").addClass("hidden");
+    },
+    ShowReport: function () {
+        for (x in data_day) {
+            day_yield.push(data_day[x].yield);
+            day_axis.push(data_day[x].date);
+            day_pep.push(data_day[x].p_Efficiency_P);
+            day_pec.push(data_day[x].p_Efficiency_C);
+            day_performance.push(data_day[x].performance);
+            day_oeec.push(data_day[x].oeec);
+            day_oeep.push(data_day[x].oeep);
+        }
+        for (x in data_week) {
+            week_axis.push(data_week[x].date);
+            week_yield.push(data_week[x].yield);
+            week_pep.push(data_week[x].p_Efficiency_P);
+            week_pec.push(data_week[x].p_Efficiency_C);
+            week_performance.push(data_week[x].performance);
+            week_oeec.push(data_week[x].oeec);
+            week_oeep.push(data_week[x].oeep);
+        }
+        for (x in data_month) {
+            month_axis.push(data_month[x].date);
+            month_yield.push(data_month[x].yield);
+            month_pep.push(data_month[x].p_Efficiency_P);
+            month_pec.push(data_month[x].p_Efficiency_C);
+            month_performance.push(data_month[x].performance);
+            month_oeec.push(data_month[x].oeec);
+            month_oeep.push(data_month[x].oeep);
+        }
+        for (var i = 0; i < 6; i++) {
+            myChartx[i] = echarts.init(document.getElementById('main_' + i + 'x'));
+            myCharty[i] = echarts.init(document.getElementById('main_' + i + 'y'));
+            myChartz[i] = echarts.init(document.getElementById('main_' + i + 'z'));
+
+            var x,y,z,name;
+            switch (i) {
+                case 0:
+                    x = day_yield;
+                    y = week_yield;
+                    z = month_yield;
+                    name = '良率';
+                    break;
+                case 1:
+                    x = day_pep;
+                    y = week_pep;
+                    z = month_pep;
+                    name = '生产效率P';
+                    break;
+                case 2:
+                    x = day_pec;
+                    y = week_pec;
+                    z = month_pec;
+                    name = '生产效率C';
+                    break;
+                case 3:
+                    x = day_performance;
+                    y = week_performance;
+                    z = month_performance;
+                    name = '绩效';
+                    break;
+                case 4:
+                    x = day_oeec;
+                    y = week_oeec;
+                    z = month_oeec;
+                    name = 'OEEC';
+                    break;
+                case 5:
+                    x = day_oeep;
+                    y = week_oeep;
+                    z = month_oeep;
+                    name = 'OEEP';
+                    break;
+            }
+
+            option_temp.xAxis[0].data = day_axis;
+            option_temp.series[0].data = x;
+            option_temp.series[0].name = name;
+            option_temp.legend.data[0] = name;
+            option_temp.series[0].itemStyle.normal.color = 'blue';
+            myChartx[i].setOption(option_temp);
+            option_temp.xAxis[0].data = week_axis;
+            option_temp.series[0].data = y;
+            option_temp.series[0].itemStyle.normal.color = 'red';
+            myCharty[i].setOption(option_temp);
+            option_temp.xAxis[0].data = month_axis;
+            option_temp.series[0].data = z;
+            option_temp.series[0].itemStyle.normal.color = 'pink';
+            myChartz[i].setOption(option_temp);
+        }
+
+
+        $("#area_report").removeClass("hidden").addClass("active");
+        $("#area_index").removeClass("acitve").addClass("hidden");
+        $("#area_a").removeClass("acitve").addClass("hidden");
+        $("#area_b").removeClass("acitve").addClass("hidden");
+        $("#area_c").removeClass("acitve").addClass("hidden");
+        $("#area_d").removeClass("acitve").addClass("hidden");
     },
     DataBind_A: function () {
         for (var i = 0; i < 11; i++) {
@@ -214,9 +418,10 @@ var App = {
         $("#area_c").removeClass("acitve").addClass("hidden");
         $("#area_d").removeClass("acitve").addClass("hidden");
         $("#area_index").removeClass("active").addClass("hidden");
+        $("#area_report").removeClass("acitve").addClass("hidden");
     },
     DataBind_B: function () {
-        for (var i =11; i < 22; i++) {
+        for (var i = 11; i < 22; i++) {
             option1[i].series[0].detail.formatter = 'OEEC {value}%';
             option1[i].series[0].data[0].value = parseInt(area_b[i - 11].oeec * 100);
             myChart1[i].setOption(option1[i]);
@@ -236,12 +441,13 @@ var App = {
             $("#area_c").removeClass("acitve").addClass("hidden");
             $("#area_d").removeClass("acitve").addClass("hidden");
             $("#area_index").removeClass("active").addClass("hidden");
+            $("#area_report").removeClass("acitve").addClass("hidden");
         }
     },
     DataBind_C: function () {
         for (var i = 22; i < 33; i++) {
             option1[i].series[0].detail.formatter = 'OEEC {value}%';
-            option1[i].series[0].data[0].value = parseInt(area_c[i - 22].oeec *100);
+            option1[i].series[0].data[0].value = parseInt(area_c[i - 22].oeec * 100);
             myChart1[i].setOption(option1[i - 22]);
             option2[i].series[0].detail.formatter = 'OEEP {value}%';
             option2[i].series[0].data[0].value = parseInt(area_c[i - 22].oeep * 100);
@@ -259,6 +465,7 @@ var App = {
             $("#area_a").removeClass("acitve").addClass("hidden");
             $("#area_d").removeClass("acitve").addClass("hidden");
             $("#area_index").removeClass("active").addClass("hidden");
+            $("#area_report").removeClass("acitve").addClass("hidden");
         }
     },
     DataBind_D: function () {
@@ -282,6 +489,7 @@ var App = {
             $("#area_c").removeClass("acitve").addClass("hidden");
             $("#area_a").removeClass("acitve").addClass("hidden");
             $("#area_index").removeClass("active").addClass("hidden");
+            $("#area_report").removeClass("acitve").addClass("hidden");
         }
     }
 };

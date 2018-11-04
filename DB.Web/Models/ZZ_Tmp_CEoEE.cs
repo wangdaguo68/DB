@@ -47,5 +47,6 @@ namespace DB.Web.Models
         /// OEEP 良率*效率P*绩效
         /// </summary>
         public decimal? OEEP { get; set; }
+        public string Date { get; set; }
     }
 }

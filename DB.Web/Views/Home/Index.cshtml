@@ -34,14 +34,17 @@
         //1分钟切一次屏幕
         var timeScreen = setInterval(function () {
             i = i + 1;
-            if (i % 5 === 1) {
+            if (i % 6 === 1) {
                 App.ShowIndex();
-            } else if (i % 5 === 2) {
+            } else if (i % 6 === 2) {
+                App.ShowReport();
+            }
+            else if (i % 6 === 3) {
                 App.DataBind_A();
             }
-            else if (i % 5 === 3) {
+            else if (i % 6 === 4) {
                 App.DataBind_B();
-            } else if (i % 5 === 4) {
+            } else if (i % 6 === 5) {
                 App.DataBind_C();
             } else {
                 App.DataBind_D();
