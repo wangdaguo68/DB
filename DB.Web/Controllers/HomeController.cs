@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using DB.Web.Models;
 using System.Linq;
+using System.Globalization;
 
 namespace DB.Web.Controllers
 {
@@ -37,7 +38,7 @@ namespace DB.Web.Controllers
                 //前台需要的真实日数据
                 var yield = (obj.LPQty + obj.NQty) == 0 ? 0 : Convert.ToDecimal(obj.LPQty) / (obj.LPQty + obj.NQty);
                 var p_e_p = obj.JHTime == 0 ? 0 : Convert.ToDecimal(obj.YXYX) / obj.JHTime;
-                var p_e_c = obj.JTKYZTime == 0 ? 0 : Convert.ToDecimal(obj.YXYX) / obj.JTKYZTime;
+                var p_e_c = obj.JTKYXTime == 0 ? 0 : Convert.ToDecimal(obj.YXYX) / obj.JTKYXTime;
                 var performance = obj.BZCL == 0 ? 0 : Convert.ToDecimal(obj.LPQty) / obj.BZCL;
                 var oeec = yield * p_e_c * performance;
                 var oeep = yield * p_e_p * performance;
@@ -56,7 +57,7 @@ namespace DB.Web.Controllers
             //过去4周每周数据
             var data_week = new List<DataModel>();
             var item = new DataModel();
-            for (var i = 0; i < 4; i++)
+            for (var i = 3; i >= 0; i--)
             {
                 var items = total.Where(p => p.DocDate <= DateTime.Now.AddDays(0 - i * 7) && p.DocDate >= DateTime.Now.AddDays(0 - (i + 1) * 7)).ToList();
                 if (items.Any())
@@ -69,7 +70,7 @@ namespace DB.Web.Controllers
                         BZCL = items.Sum(p => p.BZCL),
                         YXYX = items.Sum(p => p.YXYX),
                         JHTime = items.Sum(p => p.JHTime),
-                        JTKYZTime = items.Sum(p => p.JTKYZTime),
+                        JTKYXTime = items.Sum(p => p.JTKYXTime),
                     };
                     data_week.Add(item);
                 }
@@ -83,14 +84,14 @@ namespace DB.Web.Controllers
                         BZCL = 0,
                         YXYX = 0,
                         JHTime = 0,
-                        JTKYZTime = 0,
+                        JTKYXTime = 0,
                     };
                     data_week.Add(item);
                 }
                 //前台需要的真实周数据
                 var yield = (item.LPQty + item.NQty) == 0 ? 0 : Convert.ToDecimal(item.LPQty) / (item.LPQty + item.NQty);
                 var p_e_p = item.JHTime == 0 ? 0 : Convert.ToDecimal(item.YXYX) / item.JHTime;
-                var p_e_c = item.JTKYZTime == 0 ? 0 : Convert.ToDecimal(item.YXYX) / item.JTKYZTime;
+                var p_e_c = item.JTKYXTime == 0 ? 0 : Convert.ToDecimal(item.YXYX) / item.JTKYXTime;
                 var performance = item.BZCL == 0 ? 0 : Convert.ToDecimal(item.LPQty) / item.BZCL;
                 var oeec = yield * p_e_c * performance;
                 var oeep = yield * p_e_p * performance;
@@ -102,7 +103,7 @@ namespace DB.Web.Controllers
                     Performance = Math.Round(performance, 2),
                     OEEC = Math.Round(oeec, 2),
                     OEEP = Math.Round(oeep, 2),
-                    Date = "第" + (i + 1) + "周"
+                    Date = "第" + GetWeekOfYear(items[0].DocDate) + "周"
                 };
                 result_week.Add(model);
             }
@@ -129,7 +130,7 @@ namespace DB.Web.Controllers
                         BZCL = items.Sum(p => p.BZCL),
                         YXYX = items.Sum(p => p.YXYX),
                         JHTime = items.Sum(p => p.JHTime),
-                        JTKYZTime = items.Sum(p => p.JTKYZTime),
+                        JTKYXTime = items.Sum(p => p.JTKYXTime),
                     };
                     data_month.Add(item);
                 }
@@ -144,7 +145,7 @@ namespace DB.Web.Controllers
                         BZCL = 0,
                         YXYX = 0,
                         JHTime = 0,
-                        JTKYZTime = 0,
+                        JTKYXTime = 0,
                     };
                     data_month.Add(item);
                 }
@@ -152,7 +153,7 @@ namespace DB.Web.Controllers
                 //前台需要的真实周数据
                 var yield = (item.LPQty + item.NQty) == 0 ? 0 : Convert.ToDecimal(item.LPQty) / (item.LPQty + item.NQty);
                 var p_e_p = item.JHTime == 0 ? 0 : Convert.ToDecimal(item.YXYX) / item.JHTime;
-                var p_e_c = item.JTKYZTime == 0 ? 0 : Convert.ToDecimal(item.YXYX) / item.JTKYZTime;
+                var p_e_c = item.JTKYXTime == 0 ? 0 : Convert.ToDecimal(item.YXYX) / item.JTKYXTime;
                 var performance = item.BZCL == 0 ? 0 : Convert.ToDecimal(item.LPQty) / item.BZCL;
                 var oeec = yield * p_e_c * performance;
                 var oeep = yield * p_e_p * performance;
@@ -202,17 +203,23 @@ namespace DB.Web.Controllers
         /// <returns></returns>
         public JsonResult GetAreas()
         {
-
-            var data = SqlQuery<WSActualTimeData>(_db, "select * from WSActualTimeData");
-            var result = new
+            try
             {
-                A = data.Where(p => p.Area == "A"),
-                B = data.Where(p => p.Area == "B"),
-                C = data.Where(p => p.Area == "C"),
-                D = data.Where(p => p.Area == "D"),
-                Report = GetData()
-            };
-            return Json(result);
+
+                var data = SqlQuery<WSActualTimeData>(_db, "select * from WSActualTimeData");
+                var result = new
+                {
+                    A = data.Where(p => p.Area == "A"),
+                    B = data.Where(p => p.Area == "B"),
+                    C = data.Where(p => p.Area == "C"),
+                    D = data.Where(p => p.Area == "D"),
+                    Report = GetData()
+                };
+                return Json(result);
+            }
+            catch (Exception ex) {
+                return Json(ex);
+            }
 
         }
         /// <summary>
@@ -388,7 +395,7 @@ namespace DB.Web.Controllers
                         BZCL = bzcl,
                         YXYX = yxyx,
                         JHTime = jhtime,
-                        JTKYZTime = jtkyxtime
+                        JTKYXTime = jtkyxtime
                     };
                     //_db.ZZ_Tmp_CEoEEs.Add(model);
                 }
@@ -396,6 +403,16 @@ namespace DB.Web.Controllers
                 trans.Commit();
             }
         }
-
+        /// <summary>
+        /// 获取指定日期，在为一年中为第几周
+        /// </summary>
+        /// <param name="dt">指定时间</param>
+        /// <reutrn>返回第几周</reutrn>
+        private static int GetWeekOfYear(DateTime dt)
+        {
+            GregorianCalendar gc = new GregorianCalendar();
+            int weekOfYear = gc.GetWeekOfYear(dt, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+            return weekOfYear;
+        }
     }
 }

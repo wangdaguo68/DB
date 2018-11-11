@@ -67,6 +67,7 @@ var option_temp = {
     xAxis: [
         {
             type: 'category',
+            splitLine: { show: false },//去除网格线
             data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
             axisLabel: {
                 show: true,
@@ -87,6 +88,7 @@ var option_temp = {
                     color: '#fff'
                 }
             },
+            splitLine: { show: false },//去除网格线
             nameTextStyle: {
                 color:'#fff'
             }
@@ -96,12 +98,13 @@ var option_temp = {
 
         {
             name: '良率',
-            type: 'bar',
+            type: 'line',
             barWidth: 30,//柱图宽度
             data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
             itemStyle: {
                 normal: {
-                    color: '#4ad2ff'
+                    color: '#4ad2ff',
+                    label: { show: true }
                 }
             },
         }
@@ -248,7 +251,11 @@ var App = {
             myChart2[i] = echarts.init(document.getElementById('main_' + i + '2'));
             myChart3[i] = echarts.init(document.getElementById('main_' + i + '3'));
         }
-
+        for (var i = 0; i < 6; i++) {
+            myChartx[i] = echarts.init(document.getElementById('main_' + i + 'x'));
+            myCharty[i] = echarts.init(document.getElementById('main_' + i + 'y'));
+            myChartz[i] = echarts.init(document.getElementById('main_' + i + 'z'));
+        }
     },
     /**
      * 初始化数据
@@ -267,6 +274,33 @@ var App = {
                 data_day = data.report.results_Day;
                 data_week = data.report.results_Week;
                 data_month = data.report.results_Month;
+                for (x in data_day) {
+                    day_yield.push(data_day[x].yield);
+                    day_axis.push(data_day[x].date);
+                    day_pep.push(data_day[x].p_Efficiency_P);
+                    day_pec.push(data_day[x].p_Efficiency_C);
+                    day_performance.push(data_day[x].performance);
+                    day_oeec.push(data_day[x].oeec);
+                    day_oeep.push(data_day[x].oeep);
+                }
+                for (x in data_week) {
+                    week_axis.push(data_week[x].date);
+                    week_yield.push(data_week[x].yield);
+                    week_pep.push(data_week[x].p_Efficiency_P);
+                    week_pec.push(data_week[x].p_Efficiency_C);
+                    week_performance.push(data_week[x].performance);
+                    week_oeec.push(data_week[x].oeec);
+                    week_oeep.push(data_week[x].oeep);
+                }
+                for (x in data_month) {
+                    month_axis.push(data_month[x].date);
+                    month_yield.push(data_month[x].yield);
+                    month_pep.push(data_month[x].p_Efficiency_P);
+                    month_pec.push(data_month[x].p_Efficiency_C);
+                    month_performance.push(data_month[x].performance);
+                    month_oeec.push(data_month[x].oeec);
+                    month_oeep.push(data_month[x].oeep);
+                }
             }
         });
     },
@@ -300,38 +334,8 @@ var App = {
         $("#area_report").removeClass("acitve").addClass("hidden");
     },
     ShowReport: function () {
-        for (x in data_day) {
-            day_yield.push(data_day[x].yield);
-            day_axis.push(data_day[x].date);
-            day_pep.push(data_day[x].p_Efficiency_P);
-            day_pec.push(data_day[x].p_Efficiency_C);
-            day_performance.push(data_day[x].performance);
-            day_oeec.push(data_day[x].oeec);
-            day_oeep.push(data_day[x].oeep);
-        }
-        for (x in data_week) {
-            week_axis.push(data_week[x].date);
-            week_yield.push(data_week[x].yield);
-            week_pep.push(data_week[x].p_Efficiency_P);
-            week_pec.push(data_week[x].p_Efficiency_C);
-            week_performance.push(data_week[x].performance);
-            week_oeec.push(data_week[x].oeec);
-            week_oeep.push(data_week[x].oeep);
-        }
-        for (x in data_month) {
-            month_axis.push(data_month[x].date);
-            month_yield.push(data_month[x].yield);
-            month_pep.push(data_month[x].p_Efficiency_P);
-            month_pec.push(data_month[x].p_Efficiency_C);
-            month_performance.push(data_month[x].performance);
-            month_oeec.push(data_month[x].oeec);
-            month_oeep.push(data_month[x].oeep);
-        }
-        for (var i = 0; i < 6; i++) {
-            myChartx[i] = echarts.init(document.getElementById('main_' + i + 'x'));
-            myCharty[i] = echarts.init(document.getElementById('main_' + i + 'y'));
-            myChartz[i] = echarts.init(document.getElementById('main_' + i + 'z'));
 
+        for (var i = 0; i < 6; i++) {
             var x,y,z,name;
             switch (i) {
                 case 0:

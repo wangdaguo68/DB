@@ -12,7 +12,7 @@ namespace DB.Web.Models
         public decimal BZCL { get; set; }
         public int YXYX { get; set; }
         public int JHTime { get; set; }
-        public int JTKYZTime { get; set; }
+        public int JTKYXTime { get; set; }
     }
     public class DataModel : ZZ_Tmp_CEoEE
     {

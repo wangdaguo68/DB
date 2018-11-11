@@ -27,7 +27,11 @@
         height: 32%;
         margin-bottom: 10px;
     }
-
+    .row-report {
+        height: 16%;
+        margin-bottom: 10px;
+        margin-left: 10px;
+    }
     .process {
         border: 2px #ffffff solid;
         border-radius: 5px;
