@@ -1,4 +1,7 @@
-﻿var area_a = new Array();
+﻿var x = 400;
+var y = 350;
+var z = 600;
+var area_a = new Array();
 var area_b = new Array();
 var area_c = new Array();
 var area_d = new Array();
@@ -58,7 +61,7 @@ var option_temp = {
     },
     calculable: true,
     legend: {
-        data: [],
+        data: ['良率', '生产效率P', '生产效率C', '绩效'],
         textStyle: {
             fontSize: 12,
             color: '#fff'
@@ -80,7 +83,7 @@ var option_temp = {
     yAxis: [
         {
             type: 'value',
-            name: '百分比',
+            name: '趋势',
             axisLabel: {
                 formatter: '{value}',
                 show: true,
@@ -90,7 +93,7 @@ var option_temp = {
             },
             splitLine: { show: false },//去除网格线
             nameTextStyle: {
-                color:'#fff'
+                color: '#fff'
             }
         }
     ],
@@ -99,18 +102,117 @@ var option_temp = {
         {
             name: '良率',
             type: 'line',
-            barWidth: 30,//柱图宽度
             data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
             itemStyle: {
                 normal: {
-                    color: '#4ad2ff',
+                    color: 'red',
+                    label: { show: true }
+                }
+            },
+        },
+        {
+            name: '生产效率P',
+            type: 'line',
+            data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+            itemStyle: {
+                normal: {
+                    color: 'blue',
+                    label: { show: true }
+                }
+            },
+        },
+        {
+            name: '生产效率C',
+            type: 'line',
+            data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+            itemStyle: {
+                normal: {
+                    color: 'yellow',
+                    label: { show: true }
+                }
+            },
+        },
+        {
+            name: '绩效',
+            type: 'line',
+            data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+            itemStyle: {
+                normal: {
+                    color: 'pink',
                     label: { show: true }
                 }
             },
         }
     ]
 };
+var option_oee = {
+    tooltip: {
+        trigger: 'axis'
+    },
+    calculable: true,
+    legend: {
+        data: ['OEEC', 'OEEP'],
+        textStyle: {
+            fontSize: 12,
+            color: '#fff'
+        }
+    },
+    xAxis: [
+        {
+            type: 'category',
+            splitLine: { show: false },//去除网格线
+            data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+            axisLabel: {
+                show: true,
+                textStyle: {
+                    color: '#fff'
+                }
+            }
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value',
+            name: '趋势',
+            axisLabel: {
+                formatter: '{value}',
+                show: true,
+                textStyle: {
+                    color: '#fff'
+                }
+            },
+            splitLine: { show: false },//去除网格线
+            nameTextStyle: {
+                color: '#fff'
+            }
+        }
+    ],
+    series: [
 
+        {
+            name: 'OEEC',
+            type: 'line',
+            data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+            itemStyle: {
+                normal: {
+                    color: 'red',
+                    label: { show: true }
+                }
+            },
+        },
+        {
+            name: 'OEEP',
+            type: 'line',
+            data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+            itemStyle: {
+                normal: {
+                    color: 'orange',
+                    label: { show: true }
+                }
+            },
+        }
+    ]
+};
 var option = {
     series: [
         {
@@ -185,6 +287,9 @@ var App = {
             chartwidth = Math.round(width / 1980) * 150;
             chartheight = chartwidth / 3 * 4;
             chartfontsize = 15;
+            x = 500;
+            y = 400;
+            z = 1000;
         }
     },
     /**
@@ -209,14 +314,14 @@ var App = {
      * */
     InitDom: function () {
         var dom_index = '<div id="area_index" class="active hundred-height">';
-        dom_index = dom_index + '<img src="/images/bg1.jpg" />';
+        dom_index = dom_index + '<img src="/images/1980.png" />';
         dom_index = dom_index + '</div>';
         var dom_report = '<div id="area_report" class="active hundred-height">';
-        for (var i = 0; i < 6; i++) {
+        for (var i = 0; i < 2; i++) {
             dom_report += '<div class="row row-report">';
-            dom_report += '<div id="main_'+i+'x'+'" class="chart-css" style ="height:' + 180 + 'px;width:' + 500 + 'px"></div>';
-            dom_report += '<div id="main_' + i + 'y' +'" class="chart-css" style ="height:' + 180 + 'px;width:' + 400 + 'px"></div>';
-            dom_report += '<div id="main_' + i + 'z' +'" class="chart-css" style ="height:' + 180 + 'px;width:' + 1000 + 'px"></div>';
+            dom_report += '<div id="main_' + i + 'x' + '" class="chart-css" style ="height:' + 350 + 'px;width:' + x + 'px"></div>';
+            dom_report += '<div id="main_' + i + 'y' + '" class="chart-css" style ="height:' + 350 + 'px;width:' + y + 'px"></div>';
+            dom_report += '<div id="main_' + i + 'z' + '" class="chart-css" style ="height:' + 350 + 'px;width:' + z + 'px"></div>';
             dom_report += '</div>';
         }
 
@@ -251,7 +356,7 @@ var App = {
             myChart2[i] = echarts.init(document.getElementById('main_' + i + '2'));
             myChart3[i] = echarts.init(document.getElementById('main_' + i + '3'));
         }
-        for (var i = 0; i < 6; i++) {
+        for (var i = 0; i < 2; i++) {
             myChartx[i] = echarts.init(document.getElementById('main_' + i + 'x'));
             myCharty[i] = echarts.init(document.getElementById('main_' + i + 'y'));
             myChartz[i] = echarts.init(document.getElementById('main_' + i + 'z'));
@@ -335,62 +440,52 @@ var App = {
     },
     ShowReport: function () {
 
-        for (var i = 0; i < 6; i++) {
-            var x,y,z,name;
-            switch (i) {
-                case 0:
-                    x = day_yield;
-                    y = week_yield;
-                    z = month_yield;
-                    name = '良率';
-                    break;
-                case 1:
-                    x = day_pep;
-                    y = week_pep;
-                    z = month_pep;
-                    name = '生产效率P';
-                    break;
-                case 2:
-                    x = day_pec;
-                    y = week_pec;
-                    z = month_pec;
-                    name = '生产效率C';
-                    break;
-                case 3:
-                    x = day_performance;
-                    y = week_performance;
-                    z = month_performance;
-                    name = '绩效';
-                    break;
-                case 4:
-                    x = day_oeec;
-                    y = week_oeec;
-                    z = month_oeec;
-                    name = 'OEEC';
-                    break;
-                case 5:
-                    x = day_oeep;
-                    y = week_oeep;
-                    z = month_oeep;
-                    name = 'OEEP';
-                    break;
-            }
 
-            option_temp.xAxis[0].data = day_axis;
-            option_temp.series[0].data = x;
-            option_temp.series[0].name = name;
-            option_temp.legend.data[0] = name;
-            option_temp.series[0].itemStyle.normal.color = 'blue';
-            myChartx[i].setOption(option_temp);
-            option_temp.xAxis[0].data = week_axis;
-            option_temp.series[0].data = y;
-            option_temp.series[0].itemStyle.normal.color = 'red';
-            myCharty[i].setOption(option_temp);
-            option_temp.xAxis[0].data = month_axis;
-            option_temp.series[0].data = z;
-            option_temp.series[0].itemStyle.normal.color = 'pink';
-            myChartz[i].setOption(option_temp);
-        }
+        option_temp.xAxis[0].data = day_axis;
+        option_temp.yAxis[0].name = '日趋势';
+        option_temp.series[0].data = day_yield;
+        option_temp.series[1].data = day_pep;
+        option_temp.series[2].data = day_pec;
+        option_temp.series[3].data = day_performance;
+        //option_temp.series[0].name = name;
+        //option_temp.legend.data[0] = name;
+        //option_temp.series[0].itemStyle.normal.color = 'blue';
+        myChartx[0].setOption(option_temp);
+
+        option_temp.xAxis[0].data = week_axis;
+        option_temp.yAxis[0].name = '周趋势';
+        option_temp.series[0].data = week_yield;
+        option_temp.series[1].data = week_pep;
+        option_temp.series[2].data = week_pec;
+        option_temp.series[3].data = week_performance;
+        myCharty[0].setOption(option_temp);
+
+        option_temp.xAxis[0].data = month_axis;
+        option_temp.yAxis[0].name = '月趋势';
+        option_temp.series[0].data = month_yield;
+        option_temp.series[1].data = month_pep;
+        option_temp.series[2].data = month_pec;
+        option_temp.series[3].data = month_performance;
+        myChartz[0].setOption(option_temp);
+
+        option_oee.xAxis[0].data = day_axis;
+        option_oee.yAxis[0].name = '日趋势';
+        option_oee.series[0].data = day_oeec;
+        option_oee.series[1].data = day_oeep;
+        myChartx[1].setOption(option_oee);
+
+        option_oee.xAxis[0].data = week_axis;
+        option_oee.yAxis[0].name = '周趋势';
+        option_oee.series[0].data = week_oeec;
+        option_oee.series[1].data = week_oeep;
+        myCharty[1].setOption(option_oee);
+
+        option_oee.xAxis[0].data = month_axis;
+        option_oee.yAxis[0].name = '月趋势';
+        option_oee.series[0].data = month_oeec;
+        option_oee.series[1].data = month_oeep;
+        myChartz[1].setOption(option_oee);
+
 
 
         $("#area_report").removeClass("hidden").addClass("active");
