@@ -274,9 +274,8 @@ var App = {
         this.InitData();
         //区域A数据绑定
         this.ShowIndex();
-        //this.DataBind_A();
-	this.InitSecond();
-        this.ShowReport();
+        this.DataBind_A();
+        //this.ShowReport();
 
     },
     SetCss: function () {
@@ -318,16 +317,16 @@ var App = {
      * */
     InitDom: function () {
         var dom_index = '<div id="area_index" class="active hundred-height">';
-        dom_index = dom_index + '<img src="/images/bg1.jpg" />';
+        dom_index = dom_index + '<img src="/images/bg1.png" />';
         dom_index = dom_index + '</div>';
         var dom_report = '<div id="area_report" class="active hundred-height">';
         for (var i = 0; i < 2; i++) {
             dom_report += '<div class="row row-report">';
-            dom_report += '<div id="main_' + i + 'x' + '" class="chart-css" style ="height:' + 200 + 'px;width:' + x + 'px"></div>';
-            dom_report += '<div id="main_' + i + 'z' + '" class="chart-css" style ="height:' + 200 + 'px;width:' + z + 'px"></div>';
+            dom_report += '<div id="main_' + i + 'x' + '" class="chart-css" style ="height:' + 350 + 'px;width:' + x + 'px"></div>';
+            dom_report += '<div id="main_' + i + 'z' + '" class="chart-css" style ="height:' + 350 + 'px;width:' + z + 'px"></div>';
             dom_report += '</div>';
         }
-        dom_report += '<p style="text-align:center;font-size:24px;font-weight: bold" id="status"></p>';
+        dom_report += '<p style="color:red;text-align:center;font-size:22px" id="status"></p>';
         dom_report = dom_report + '</div>';
         var dom_a = '<div id="area_a" class="hidden hundred-height">';
         dom_a = dom_a + '<div class="row row-margin">' + this.CreateBox(0) + this.CreateBox(1) + this.CreateBox(2) + this.CreateBox(3) + '</div>';
@@ -384,7 +383,7 @@ var App = {
                 data_day = data.report.results_Day;
                 data_week = data.report.results_Week;
                 data_month = data.report.results_Month;
-                $("#status").html('<font style="color:green">正常运行：' + common + '台</font>&nbsp;&nbsp;&nbsp;&nbsp;     <font style="color:red">异常停机：' + exception + '台</font>  &nbsp;&nbsp;&nbsp;&nbsp;      <font style="color:yellow">计划停机：' + stop + '台</font>');
+                $("#status").html('正常运行：' + common + '台     异常：' + exception + '台       停机：' + stop + '台');
                 for (x in data_day) {
                     day_yield.push(data_day[x].yield);
                     day_axis.push(data_day[x].date);
@@ -445,14 +444,8 @@ var App = {
         $("#area_report").removeClass("acitve").addClass("hidden");
     },
     ShowReport: function () {
-        $("#area_report").removeClass("hidden").addClass("active");
-        $("#area_index").removeClass("acitve").addClass("hidden");
-        $("#area_a").removeClass("acitve").addClass("hidden");
-        $("#area_b").removeClass("acitve").addClass("hidden");
-        $("#area_c").removeClass("acitve").addClass("hidden");
-        $("#area_d").removeClass("acitve").addClass("hidden");
-    },
-    InitSecond:function(){
+
+
         option_temp.xAxis[0].data = day_axis;
         option_temp.yAxis[0].name = '日趋势';
         option_temp.series[0].data = day_yield;
@@ -462,7 +455,7 @@ var App = {
         //option_temp.series[0].name = name;
         //option_temp.legend.data[0] = name;
         //option_temp.series[0].itemStyle.normal.color = 'blue';
-        myChartx[0].setOption(option_temp,true);
+        myChartx[0].setOption(option_temp);
 
         option_temp.xAxis[0].data = month_axis;
         option_temp.yAxis[0].name = '月趋势';
@@ -470,21 +463,30 @@ var App = {
         option_temp.series[1].data = month_pep;
         option_temp.series[2].data = month_pec;
         option_temp.series[3].data = month_performance;
-        myChartz[0].setOption(option_temp,true);
+        myChartz[0].setOption(option_temp);
 
         option_oee.xAxis[0].data = day_axis;
         option_oee.yAxis[0].name = '日趋势';
         option_oee.series[0].data = day_oeec;
         option_oee.series[1].data = day_oeep;
-        myChartx[1].setOption(option_oee,true);
+        myChartx[1].setOption(option_oee);
 
 
         option_oee.xAxis[0].data = month_axis;
         option_oee.yAxis[0].name = '月趋势';
         option_oee.series[0].data = month_oeec;
         option_oee.series[1].data = month_oeep;
-        myChartz[1].setOption(option_oee,true);
-}, 	
+        myChartz[1].setOption(option_oee);
+
+
+
+        $("#area_report").removeClass("hidden").addClass("active");
+        $("#area_index").removeClass("acitve").addClass("hidden");
+        $("#area_a").removeClass("acitve").addClass("hidden");
+        $("#area_b").removeClass("acitve").addClass("hidden");
+        $("#area_c").removeClass("acitve").addClass("hidden");
+        $("#area_d").removeClass("acitve").addClass("hidden");
+    },
     DataBind_A: function () {
         for (var i = 0; i < 11; i++) {
             option1[i].series[0].detail.formatter = 'OEEC {value}%';

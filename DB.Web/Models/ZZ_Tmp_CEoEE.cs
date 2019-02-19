@@ -48,5 +48,6 @@ namespace DB.Web.Models
         /// </summary>
         public decimal? OEEP { get; set; }
         public string Date { get; set; }
+        public DateTime? OrderDate { get; set; }
     }
 }

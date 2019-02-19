@@ -103,7 +103,7 @@ namespace DB.Web.Controllers
                     Performance = Math.Round(performance, 2),
                     OEEC = Math.Round(oeec, 2),
                     OEEP = Math.Round(oeep, 2),
-                    Date = "第" + GetWeekOfYear(items[0].DocDate) + "周"
+                    Date = "第" + (items.Any()? GetWeekOfYear(items[0].DocDate):0) + "周"
                 };
                 result_week.Add(model);
             }
@@ -115,7 +115,7 @@ namespace DB.Web.Controllers
                 var month = DateTime.Now.Month - i - 1;
                 if (month <= 0)
                 {
-                    month = 13 - i;
+                    month = 12 - i;
                     year = year - 1;
                 }
                 var items = total.Where(p => p.DocDate.Month == month && p.DocDate.Year == year).ToList();
@@ -165,10 +165,12 @@ namespace DB.Web.Controllers
                     Performance = Math.Round(performance, 2),
                     OEEC = Math.Round(oeec, 2),
                     OEEP = Math.Round(oeep, 2),
-                    Date = item.DocDate.ToString("yyyy-MM")
+                    Date = item.DocDate.ToString("yyyy-MM"),
+                    OrderDate = item.DocDate
                 };
                 result_month.Add(model);
             }
+            result_month=result_month.OrderBy(p => p.OrderDate).ToList();
             return new
             {
                 Results_Day = result_day,
@@ -207,12 +209,18 @@ namespace DB.Web.Controllers
             {
 
                 var data = SqlQuery<WSActualTimeData>(_db, "select * from WSActualTimeData");
+                var stop = data.Count(p => p.Status.Equals("等待开机"));
+                var exception = data.Count(p => p.Status.Equals("停机"));
+                var common = data.Count - stop - exception;
                 var result = new
                 {
                     A = data.Where(p => p.Area == "A"),
                     B = data.Where(p => p.Area == "B"),
                     C = data.Where(p => p.Area == "C"),
                     D = data.Where(p => p.Area == "D"),
+                    Stop= stop,
+                    Exception = exception,
+                    Common = common,
                     Report = GetData()
                 };
                 return Json(result);
