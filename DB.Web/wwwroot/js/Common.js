@@ -275,7 +275,7 @@ var App = {
         //区域A数据绑定
         this.ShowIndex();
         //this.DataBind_A();
-	this.InitSecond();
+	    this.InitSecond();
         this.ShowReport();
 
     },
@@ -423,15 +423,25 @@ var App = {
         doc = doc + '<div class="col-xs-5 p-name" id="name_' + num + '" style ="height:' + height / 23 + 'px;font-size:' + fontsize + 'em"></div>';
         doc = doc + '<div class="col-xs-4 p-num" id="num_' + num + '" style ="height:' + height / 23 + 'px;font-size:' + fontsize + 'em"></div>';
         doc = doc + '</div>';
-        doc = doc + '<div class="row" style="height:15%">';
+        doc = doc + '<div id="row2_' + num +'" class="row" style="height:15%">';
         doc = doc + '<progress class="process" id="process_' + num + '" style ="height:' + height / 23 + 'px"></progress>';
         doc = doc + '<p class="process-p" id="processnum_' + num + '" style ="height:' + height / 23 + 'px;font-size:' + fontsize + 'em"></p>';
         doc = doc + '</div>';
-        doc = doc + '<div class="row" style="height:70%">';
+        doc = doc + '<div id="row3_' + num +'" class="row" style="height:70%">';
         doc = doc + '<div id="main_' + num + '1" class="chart-css" style ="height:' + chartheight + 'px;width:' + chartwidth + 'px;margin-left:15px"></div>';
         doc = doc + '<div id="main_' + num + '2" class="chart-css" style ="height:' + chartheight + 'px;width:' + chartwidth + 'px"></div>';
         doc = doc + '<div id="main_' + num + '3" class="chart-css" style ="height:' + chartheight + 'px;width:' + chartwidth + 'px"></div>';
         doc = doc + '</div>';
+
+        doc = doc + '<div id="exception_'+num+'" class="row exception" style="display:none">';
+        doc = doc + '模具异常';
+        doc = doc + '</div>';
+
+        doc = doc + '<div id="stop_' + num + '" class="row stop" style="display:none">';
+        doc = doc + '计划停机';
+        doc = doc + '</div>';
+
+
         doc = doc + '</div>';
         doc = doc + '</div>';
         return doc;
@@ -501,6 +511,16 @@ var App = {
             $("#process_" + i).attr("value", area_a[i].factQty);
             $("#process_" + i).attr("max", area_a[i].qty);
             $("#processnum_" + i).html(area_a[i].factQty + "/" + area_a[i].qty);
+            if (area_a[i].status === "等待开机") {
+                $("#row2_" + i).addClass("hidden");
+                $("#row3_" + i).addClass("hidden");
+                $("#stop_" + i).css({ "display": "block" });
+            }
+            if (area_a[i].status === "停机") {
+                $("#row2_" + i).addClass("hidden");
+                $("#row3_" + i).addClass("hidden");
+                $("#exception_" + i).css({ "display": "block"});
+            }
         }
         $("#area_a").removeClass("hidden").addClass("active");
         $("#area_b").removeClass("acitve").addClass("hidden");
@@ -525,13 +545,23 @@ var App = {
             $("#process_" + i).attr("value", area_b[i - 11].factQty);
             $("#process_" + i).attr("max", area_b[i - 11].qty);
             $("#processnum_" + i).html(area_b[i - 11].factQty + "/" + area_b[i - 11].qty);
-            $("#area_b").removeClass("hidden").addClass("active");
-            $("#area_a").removeClass("acitve").addClass("hidden");
-            $("#area_c").removeClass("acitve").addClass("hidden");
-            $("#area_d").removeClass("acitve").addClass("hidden");
-            $("#area_index").removeClass("active").addClass("hidden");
-            $("#area_report").removeClass("acitve").addClass("hidden");
+            if (area_b[i - 11].status === "等待开机") {
+                $("#row2_" + i).addClass("hidden");
+                $("#row3_" + i).addClass("hidden");
+                $("#stop_" + i).css({ "display": "block" });
+            }
+            if (area_b[i - 11].status === "停机") {
+                $("#row2_" + i).addClass("hidden");
+                $("#row3_" + i).addClass("hidden");
+                $("#exception_" + i).css({ "display": "block" });
+            }
         }
+        $("#area_b").removeClass("hidden").addClass("active");
+        $("#area_a").removeClass("acitve").addClass("hidden");
+        $("#area_c").removeClass("acitve").addClass("hidden");
+        $("#area_d").removeClass("acitve").addClass("hidden");
+        $("#area_index").removeClass("active").addClass("hidden");
+        $("#area_report").removeClass("acitve").addClass("hidden");
     },
     DataBind_C: function () {
         for (var i = 22; i < 33; i++) {
@@ -549,13 +579,23 @@ var App = {
             $("#process_" + i).attr("value", area_c[i - 22].factQty);
             $("#process_" + i).attr("max", area_c[i - 22].qty);
             $("#processnum_" + i).html(area_c[i - 22].factQty + "/" + area_c[i - 22].qty);
-            $("#area_c").removeClass("hidden").addClass("active");
-            $("#area_b").removeClass("acitve").addClass("hidden");
-            $("#area_a").removeClass("acitve").addClass("hidden");
-            $("#area_d").removeClass("acitve").addClass("hidden");
-            $("#area_index").removeClass("active").addClass("hidden");
-            $("#area_report").removeClass("acitve").addClass("hidden");
+            if (area_c[i-22].status === "等待开机") {
+                $("#row2_" + i).addClass("hidden");
+                $("#row3_" + i).addClass("hidden");
+                $("#stop_" + i).css({ "display": "block" });
+            }
+            if (area_c[i-22].status === "停机") {
+                $("#row2_" + i).addClass("hidden");
+                $("#row3_" + i).addClass("hidden");
+                $("#exception_" + i).css({ "display": "block" });
+            }
         }
+        $("#area_c").removeClass("hidden").addClass("active");
+        $("#area_b").removeClass("acitve").addClass("hidden");
+        $("#area_a").removeClass("acitve").addClass("hidden");
+        $("#area_d").removeClass("acitve").addClass("hidden");
+        $("#area_index").removeClass("active").addClass("hidden");
+        $("#area_report").removeClass("acitve").addClass("hidden");
     },
     DataBind_D: function () {
         for (var i = 33; i < 44; i++) {
@@ -573,12 +613,22 @@ var App = {
             $("#process_" + i).attr("value", area_d[i - 33].factQty);
             $("#process_" + i).attr("max", area_d[i - 33].qty);
             $("#processnum_" + i).html(area_d[i - 33].factQty + "/" + area_d[i - 33].qty);
-            $("#area_d").removeClass("hidden").addClass("active");
-            $("#area_b").removeClass("acitve").addClass("hidden");
-            $("#area_c").removeClass("acitve").addClass("hidden");
-            $("#area_a").removeClass("acitve").addClass("hidden");
-            $("#area_index").removeClass("active").addClass("hidden");
-            $("#area_report").removeClass("acitve").addClass("hidden");
+            if (area_d[i-33].status === "等待开机") {
+                $("#row2_" + i).addClass("hidden");
+                $("#row3_" + i).addClass("hidden");
+                $("#stop_" + i).css({ "display": "block" });
+            }
+            if (area_d[i-33].status === "停机") {
+                $("#row2_" + i).addClass("hidden");
+                $("#row3_" + i).addClass("hidden");
+                $("#exception_" + i).css({ "display": "block" });
+            }
         }
+        $("#area_d").removeClass("hidden").addClass("active");
+        $("#area_b").removeClass("acitve").addClass("hidden");
+        $("#area_c").removeClass("acitve").addClass("hidden");
+        $("#area_a").removeClass("acitve").addClass("hidden");
+        $("#area_index").removeClass("active").addClass("hidden");
+        $("#area_report").removeClass("acitve").addClass("hidden");
     }
 };

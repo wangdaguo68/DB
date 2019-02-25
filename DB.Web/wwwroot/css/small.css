@@ -13,7 +13,25 @@
         padding: 5px;
         display: block;
     }
+    .exception {
+        background-color: red;
+        height: 75%;
+        line-height: 210px;
+        text-align: center;
+        margin: 15px;
+        font-size: 50px;
+        border-radius: 10px;
+    }
 
+    .stop {
+        background-color: yellow;
+        height: 75%;
+        line-height: 210px;
+        text-align: center;
+        margin: 15px;
+        font-size: 50px;
+        border-radius: 10px;
+    }
     .hundred-height {
         height: 100% !important;
         /*width:100%!important;*/
@@ -102,7 +120,24 @@
         padding: 5px;
         display: block;
     }
-
+    .exception {
+        background-color: red;
+        height: 75%;
+        line-height: 210px;
+        text-align: center;
+        margin: 15px;
+        font-size: 50px;
+        border-radius:10px;
+    }
+    .stop {
+        background-color: yellow;
+        height: 75%;
+        line-height: 210px;
+        text-align: center;
+        margin: 15px;
+        font-size: 50px;
+        border-radius: 10px;
+    }
     .hundred-height {
         height: 100% !important;
         /*width:100%!important;*/
